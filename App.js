@@ -1,20 +1,68 @@
+// app.js
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { View, Image, TextInput, TouchableOpacity, Text, SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Homepage from './Homepage';  
+import { styles } from './styles';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}  initialRouteName="Login">
+        <Stack.Screen options={{gestureEnabled:false}} name="Login" component={LoginScreen} />
+        <Stack.Screen options={{gestureEnabled:false}} name="Homepage" component={Homepage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function LoginScreen({ navigation }) {
+  return (
+    <SafeAreaView style={styles.container}>
+   
+      <Image
+        source={require('./assets/logo.png')}
+        style={styles.logo}
+      />
+
+     
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Email"
+          placeholderTextColor="#999"
+        />
+      </View>
+
+      
+      <View style={styles.secondInputContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Password"
+          placeholderTextColor="#999"
+          secureTextEntry
+        />
+      </View>
+
+     
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => {
+          
+          navigation.navigate('Homepage');
+        }}
+      >
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
