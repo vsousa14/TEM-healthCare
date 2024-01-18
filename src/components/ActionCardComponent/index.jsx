@@ -3,7 +3,7 @@ import React from 'react'
 import FontAwessome from '@expo/vector-icons/FontAwesome'
 
 
-function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText, cHeight, cWidth, btnText}) {
+function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText, cHeight, cWidth}) {
   let renderSubText;
   if(subText != ""){
     renderSubText = <Text style={styles().subText}>{subText}</Text>
