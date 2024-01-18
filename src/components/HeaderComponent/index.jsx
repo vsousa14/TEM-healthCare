@@ -19,7 +19,7 @@ const HeaderComponent = memo(({navigation}) => {
               <ButtonComponent text={"Exames"} icon={"file"} navigation={navigation} pageToNavigate={"ExamsScreen"}/>
               <ButtonComponent text={"Nutrição"} icon={"folder"} />
               <ButtonComponent text={"Médicos"} icon={"user-md"} navigation={navigation} pageToNavigate={"MedicsScreen"}/>
-              <ButtonComponent text={"Objetivos"} icon={"trophy"} />
+              <ButtonComponent text={"Objetivos"} icon={"trophy"} navigation={navigation} pageToNavigate={"ObjectivesScreen"}/>
             </ScrollView>
           </View>
          
