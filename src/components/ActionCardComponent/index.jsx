@@ -5,10 +5,17 @@ import FontAwessome from '@expo/vector-icons/FontAwesome'
 
 function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText, cHeight, cWidth}) {
   let renderSubText;
+  let renderIcon;
   if(subText != ""){
     renderSubText = <Text style={styles().subText}>{subText}</Text>
   }else{
     renderSubText = "";
+  }
+
+  if(icon != ""){
+    renderIcon = <FontAwessome name={icon} onPress={() =>{}} size={24} />
+  }else{
+    renderIcon
   }
 
   if(bgColor == "#025688"){
@@ -16,7 +23,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
       <TouchableHighlight onPress={()=>{}}>
        <View style={styles(bgColor).btnContainerBig}>
           <Text style={styles().mainTextBig}>{text}</Text>
-           <FontAwessome name={icon} onPress={() =>{}} size={24} />
+           {renderIcon}
            
        </View>
    </TouchableHighlight>
@@ -26,13 +33,13 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
     return (
       <TouchableHighlight onPress={()=>{}}>
        <View style={styles(bgColor).btnContainer}>
-           <FontAwessome name={icon} size={24} />
+          {renderIcon}
            <View style={styles().textWrapper}>
            <Text style={styles().mainText}>{text}</Text>
            {renderSubText}
            </View>
            
-           <FontAwessome name={"chevron-right"} size={24} />
+           <FontAwessome name={"chevron-right"} size={16} />
        </View>
    </TouchableHighlight>
   
@@ -45,7 +52,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
            <Text style={styles().mainText}>{text}</Text>
            {renderSubText}
            </View>
-           <FontAwessome name={icon} onPress={() =>{}} size={24} />
+           {renderIcon}
            
        </View>
    </TouchableHighlight>
@@ -56,7 +63,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
 }
 
 ActionCardComponent.defaultProps = {
-    icon: "bolt",
+    icon: "",
     iconPos: "left",
     bgColor: "#ffffff",
     actionIcon: false,
@@ -100,7 +107,7 @@ ActionCardComponent.defaultProps = {
         fontWeight: 'bold',
       },
       mainTextBig:{
-        fontSize:20,
+        fontSize:18,
         fontWeight: 'bold',
       },
       textWrapper:{
