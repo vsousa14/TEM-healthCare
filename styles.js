@@ -56,17 +56,6 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#000',   // Cor do texto
   },
-  header: {
-    width: 393,
-    height: 137,
-    backgroundColor: 'rgba(52, 108, 216, 1)',
-    justifyContent: 'center',  // Centraliza verticalmente
-    alignItems: 'center',      // Centraliza horizontalmente
-  },
-  headerText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
+ 
 });
 
