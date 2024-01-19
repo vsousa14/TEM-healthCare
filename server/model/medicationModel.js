@@ -1,0 +1,51 @@
+import { DataTypes } from "sequelize";
+const sequelize = require("../config/database");
+
+const User = require("./userModel");
+
+const Medication = sequelize.define(
+  "Medication",
+  {
+    pills_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: true,
+      autoIncrement: true,
+      unique: true,
+    },
+    u_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
+        key: "u_id",
+        as: "patient_id",
+      },
+    },
+    u_doc_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
+        key: "u_id",
+        as: "doc_id",
+      },
+    },
+    pills_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pills_userrequest: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+  },
+  {
+    tableName: "medicacao",
+  }
+);
+
+Medication.belongsTo(User, { foreignKey: "u_id", as: "patient_id" });
+Medication.belongsTo(User, { foreignKey: "u_doc_id", as: "doc_id" });
+
+module.exports = Medication;
