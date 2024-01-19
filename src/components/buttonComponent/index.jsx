@@ -4,7 +4,7 @@ import FontAwessome from '@expo/vector-icons/FontAwesome'
 
 
 
-function ButtonComponent({text, color, icon, navigation, pageToNavigate}) {
+function ButtonComponent({text, color, icon, size, navigation, pageToNavigate}) {
 
   const onPressButton = () => {
     navigation.navigate(pageToNavigate);
@@ -12,9 +12,11 @@ function ButtonComponent({text, color, icon, navigation, pageToNavigate}) {
 
   return (
     <TouchableHighlight onPress={onPressButton}>
-     <View style={styles(color).btnContainer}>
+     <View style={styles(color, size).btnContainer}>
          <FontAwessome name={icon} size={24} />
+         {text !== "" ?
          <Text>{text}</Text>
+        :""}
      </View>
  </TouchableHighlight>
 
@@ -22,15 +24,16 @@ function ButtonComponent({text, color, icon, navigation, pageToNavigate}) {
 }
 
 ButtonComponent.defaultProps = {
-    text: "Resultados",
+    text: "",
     color: "#025688",
-    icon: "star"
+    icon: "bolt",
+    size:84
   }
 
-  const styles = (color) => StyleSheet.create({
+  const styles = (color,size) => StyleSheet.create({
     btnContainer: {
-        width: 84,
-        height: 84,
+        width: size,
+        height: size,
         backgroundColor: color,
         flexDirection:'column',
         justifyContent:'space-evenly',  // Centraliza verticalmente

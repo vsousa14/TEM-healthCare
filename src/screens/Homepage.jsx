@@ -9,12 +9,12 @@ import ActionCardComponent from '../components/ActionCardComponent';
     <SafeAreaView>
       <ScrollView>
       
-      <HeaderComponent navigation={navigation}/>
+      <HeaderComponent navigation={navigation} userType={0}/>
       
       <View style={styles().contentWrapper}>
       <ActionCardComponent text={"Realizar exame Pressão Arterial"} icon={"heart"} bgColor={"#025688"} iconPos={"right"}/>
-      <Text style={styles().categoryTitle}>Nutrição</Text>
-      <ActionCardComponent text={"Plano Nutrição"} icon={"cutlery"} iconPos={"left"}/>
+      <Text style={styles().categoryTitle}>Prescrições</Text>
+      <ActionCardComponent text={"Consultar Prescrições"} icon={"medkit"} iconPos={"left"} navigation={navigation} pageToGo={"MedicationScreen"}/>
       <Text style={styles().categoryTitle}>Ultimos Exames</Text>
       <ActionCardComponent text={"Análise de sangue"} icon={"file"} subText={"07/10/2023"} iconPos={"left"}/>
       <View style={styles().objectivesTextWrapper}>
@@ -22,6 +22,7 @@ import ActionCardComponent from '../components/ActionCardComponent';
       <Text style={styles().categorySubTitle}>Até 16/09/2023</Text>
       </View>
       <ActionCardComponent text={"Caminhada 30 minutos"}/>
+
       </View>  
       </ScrollView>
 
