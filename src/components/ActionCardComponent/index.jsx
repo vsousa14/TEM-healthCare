@@ -1,9 +1,16 @@
-import {StyleSheet, View, Text, Button, TouchableHighlight } from 'react-native';
+import {StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import React from 'react'
 import FontAwessome from '@expo/vector-icons/FontAwesome'
 
 
-function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText, cHeight, cWidth}) {
+function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText, cHeight, cWidth, navigation, pageToGo}) {
+  const handleRedirect = () => {
+    if(pageToGo !== ""){
+      navigation.navigate(pageToGo);
+    }
+   
+  }
+  
   let renderSubText;
   let renderIcon;
   if(subText != ""){
@@ -20,7 +27,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
 
   if(bgColor == "#025688"){
     return(
-      <TouchableHighlight onPress={()=>{}}>
+      <TouchableHighlight onPress={handleRedirect}>
        <View style={styles(bgColor).btnContainerBig}>
           <Text style={styles().mainTextBig}>{text}</Text>
            {renderIcon}
@@ -31,7 +38,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
   }
   else if(iconPos === "left" && actionIcon == false && bgColor== "#ffffff"){
     return (
-      <TouchableHighlight onPress={()=>{}}>
+      <TouchableHighlight onPress={handleRedirect}>
        <View style={styles(bgColor).btnContainer}>
           {renderIcon}
            <View style={styles().textWrapper}>
@@ -46,7 +53,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
     )
   }else if(iconPos === "right" && bgColor== "#ffffff"){
     return (
-      <TouchableHighlight onPress={()=>{}}>
+      <TouchableHighlight onPress={handleRedirect}>
        <View style={styles(bgColor).btnContainer}>
        <View style={styles().textWrapper}>
            <Text style={styles().mainText}>{text}</Text>
@@ -72,6 +79,7 @@ ActionCardComponent.defaultProps = {
     cHeight: 'auto',
     cWidth: '80%',
     btnText: "",
+    pageToGo: "",
   }
 
   const styles = (color,cWidth,cHeight) => StyleSheet.create({
