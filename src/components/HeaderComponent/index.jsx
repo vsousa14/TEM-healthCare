@@ -8,7 +8,7 @@ const HeaderComponent = memo(({navigation}) => {
         <View>
           <View style={styles.header}>
             <View style={styles.headerTextWrapper}>
-            <Text style={styles.headerTexts}>Welcome back,</Text>
+            <Text style={styles.headerTexts}>Bem-vindo novamente,</Text>
             <Text style={styles.headerTexts}>Vasco Sousa</Text>
             </View>
             
@@ -17,7 +17,7 @@ const HeaderComponent = memo(({navigation}) => {
           <ScrollView horizontal={true} style={styles.srollButtons}> 
               <ButtonComponent text={"Resultados"} icon={"star"}/>
               <ButtonComponent text={"Exames"} icon={"file"} navigation={navigation} pageToNavigate={"ExamsScreen"}/>
-              <ButtonComponent text={"Nutrição"} icon={"folder"} />
+              <ButtonComponent text={"Nutrição"} icon={"folder"} navigation={navigation} pageToNavigate={"NutritionScreen"}/>
               <ButtonComponent text={"Médicos"} icon={"user-md"} navigation={navigation} pageToNavigate={"MedicsScreen"}/>
               <ButtonComponent text={"Objetivos"} icon={"trophy"} navigation={navigation} pageToNavigate={"ObjectivesScreen"}/>
             </ScrollView>

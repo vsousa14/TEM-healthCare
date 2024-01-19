@@ -22,6 +22,7 @@ import ActionCardComponent from '../components/ActionCardComponent';
       <Text style={styles().categorySubTitle}>Até 16/09/2023</Text>
       </View>
       <ActionCardComponent text={"Caminhada 30 minutos"}/>
+
       </View>  
       </ScrollView>
 

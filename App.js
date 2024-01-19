@@ -8,6 +8,7 @@ import LoginScreen from './src/screens/LoginScreen'
 import ExamsScreen from './src/screens/ExamsScreen';
 import MedicsScreen from './src/screens/MedicsScreen';
 import ObjectivesScreen from './src/screens/ObjectivesScreen';
+import NutritionScreen from './src/screens/NutritionScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen options={{gestureEnabled:false}} name="ExamsScreen" component={ExamsScreen} />
         <Stack.Screen options={{gestureEnabled:false}} name="MedicsScreen" component={MedicsScreen} />
         <Stack.Screen options={{gestureEnabled:false}} name="ObjectivesScreen" component={ObjectivesScreen} />
+        <Stack.Screen options={{gestureEnabled:false}} name="NutritionScreen" component={NutritionScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
