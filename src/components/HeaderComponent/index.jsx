@@ -4,7 +4,7 @@ import { View, Text,ScrollView  } from 'react-native';
 import ButtonComponent from '../buttonComponent';
 import SearchComponent from '../SearchComponent';
 
-const HeaderComponent = memo(({navigation, userType}) => {
+const HeaderComponent = memo(({navigation, userType, userId}) => {
     return (
         <View>
           <View style={styles.header}>
@@ -24,7 +24,7 @@ const HeaderComponent = memo(({navigation, userType}) => {
               <ButtonComponent text={"Objetivos"} icon={"trophy"} navigation={navigation} pageToNavigate={"ObjectivesScreen"}/>
             </ScrollView>
           </View>
-         : <SearchComponent/>}
+         : <SearchComponent userId={userId}/>}
         {/* <Text style={styles.headerText}></Text> */}
       </View>
     );

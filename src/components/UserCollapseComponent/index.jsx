@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { StyleSheet } from 'react-native';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 import ButtonComponent from '../buttonComponent';
 
-const userCollapseComponent = ({ username }) => {
+const UserCollapseComponent = ({ navigation, username }) => {
   const [expanded, setExpanded] = useState(false);
-
   const onItemPress = () => {
     setExpanded(!expanded);
   };
@@ -29,7 +28,7 @@ const userCollapseComponent = ({ username }) => {
       </View>
       {expanded && (
         <View style={styles().collapseInnerContent}>
-          <ButtonComponent icon={"file"} size={46}/>
+          <ButtonComponent icon={"file"} size={46} navigation={navigation} pageToNavigate={"DoctorExamScreen"}/>
           {/* <ButtonComponent icon={"history"} size={46}/> */}
           <ButtonComponent icon={"table"} size={46}/>
           <ButtonComponent icon={"medkit"} size={46}/>
@@ -41,7 +40,7 @@ const userCollapseComponent = ({ username }) => {
   );
 };
 
-userCollapseComponent.defaultProps = {
+UserCollapseComponent.defaultProps = {
 
 };
 
@@ -89,4 +88,4 @@ const styles = () =>
     },
   });
 
-export default userCollapseComponent;
+export default UserCollapseComponent;
