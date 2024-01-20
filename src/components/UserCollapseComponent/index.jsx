@@ -33,7 +33,7 @@ const UserCollapseComponent = ({ navigation, username }) => {
           <ButtonComponent icon={"table"} size={46}/>
           <ButtonComponent icon={"medkit"} size={46} navigation={navigation} pageToNavigate={"DoctorPillsScreen"}/>
           <ButtonComponent icon={"cutlery"} size={46}/>
-          <ButtonComponent icon={"trophy"} size={46}/>
+          <ButtonComponent icon={"trophy"} size={46} navigation={navigation} pageToNavigate={"DoctorObjectivesScreen"}/>
         </View>
       )}
     </View>
