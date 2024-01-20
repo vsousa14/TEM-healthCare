@@ -30,7 +30,7 @@ const UserCollapseComponent = ({ navigation, username }) => {
         <View style={styles().collapseInnerContent}>
           <ButtonComponent icon={"file"} size={46} navigation={navigation} pageToNavigate={"DoctorExamScreen"}/>
           {/* <ButtonComponent icon={"history"} size={46}/> */}
-          <ButtonComponent icon={"table"} size={46}/>
+          <ButtonComponent icon={"table"} size={46} navigation={navigation} pageToNavigate={"DoctorPressionScreen"}/>
           <ButtonComponent icon={"medkit"} size={46} navigation={navigation} pageToNavigate={"DoctorPillsScreen"}/>
           <ButtonComponent icon={"cutlery"} size={46}/>
           <ButtonComponent icon={"trophy"} size={46} navigation={navigation} pageToNavigate={"DoctorObjectivesScreen"}/>
