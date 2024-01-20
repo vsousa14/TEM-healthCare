@@ -5,6 +5,8 @@ import HeaderComponent from '../../components/HeaderComponent';
 import PillsCardComponent from '../../components/PillsCardComponent';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 
+//! TODO: FALTA NO SIMBOLO DO "+" FAZER ABRIR O BOTTOMSHEET COM O FORMULARIO PARA ADICIONAR PRESCRIÇÃO
+
  function DoctorPillsScreen({navigation}) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
