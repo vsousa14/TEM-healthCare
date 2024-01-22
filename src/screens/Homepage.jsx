@@ -44,7 +44,7 @@ import PressionTestComponent from '../components/PressionTestComponent';
         </ScrollView>
         <BottomSheet
         ref={bottomSheetRef}
-        snapTo={'45%'}
+        snapTo={'30%'}
         backgroundColor={'#fff'}
         backDropColor={'black'}
       >

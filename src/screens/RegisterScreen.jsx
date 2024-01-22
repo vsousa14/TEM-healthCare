@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Image, TextInput, TouchableOpacity, Text, SafeAreaView, StyleSheet } from 'react-native';
 
 
-export default function LoginScreen({ navigation }) {
+export default function RegisterScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
      
@@ -19,9 +19,28 @@ export default function LoginScreen({ navigation }) {
             placeholderTextColor="#999"
           />
 
+          <TextInput
+            style={styles.textInput}
+            placeholder="Primeiro Nome"
+            placeholderTextColor="#999"
+          />
+
+          <TextInput
+            style={styles.textInput}
+            placeholder="Ultimo Nome"
+            placeholderTextColor="#999"
+          />
+
         <TextInput
             style={styles.textInput}
             placeholder="Password"
+            placeholderTextColor="#999"
+            secureTextEntry
+          />
+
+          <TextInput
+            style={styles.textInput}
+            placeholder="Repetir Password"
             placeholderTextColor="#999"
             secureTextEntry
           />
@@ -34,17 +53,17 @@ export default function LoginScreen({ navigation }) {
                   navigation.navigate('Homepage');
                 }}
               >
-                <Text style={styles.buttonText}>Login</Text>
+                <Text style={styles.buttonText}>Criar Conta</Text>
               </TouchableOpacity>
         
               <TouchableOpacity
                 style={styles.registerButton}
                 onPress={() => {
                   
-                  navigation.navigate('Register');
+                  navigation.navigate('Login');
                 }}
               >
-                <Text style={styles.buttonText}>Criar conta</Text>
+                <Text style={styles.buttonText}>Voltar</Text>
               </TouchableOpacity>
             </View>
         </View>
