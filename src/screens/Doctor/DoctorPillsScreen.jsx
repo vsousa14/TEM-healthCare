@@ -44,7 +44,7 @@ import PrescriptionFormComponent from '../../components/PrescriptionFormComponen
           </ScrollView>
           <BottomSheet
           ref={bottomSheetRef}
-          snapTo={'35%'}
+          snapTo={'55%'}
           backgroundColor={'#fff'}
           backDropColor={'black'}
           >
