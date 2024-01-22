@@ -21,26 +21,25 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-        headerShown: false
-      }}  initialRouteName="Login">
-        <Stack.Screen options={{gestureEnabled:false}} name="Login" component={LoginScreen} />
-        <Stack.Screen options={{gestureEnabled:false}} name="Homepage" component={Homepage} />
-        <Stack.Screen options={{gestureEnabled:false}} name="ExamsScreen" component={ExamsScreen} />
-        <Stack.Screen options={{gestureEnabled:false}} name="MedicsScreen" component={MedicsScreen} />
-        <Stack.Screen options={{gestureEnabled:false}} name="ObjectivesScreen" component={ObjectivesScreen} />
-        <Stack.Screen options={{gestureEnabled:false}} name="NutritionScreen" component={NutritionScreen} />
-        <Stack.Screen options={{gestureEnabled:false}} name="MedicationScreen" component={MedicationScreen} />
-        <Stack.Screen options={{gestureEnabled:false}} name="DoctorHomeScreen" component={DoctorHomeScreen} />
-        <Stack.Screen options={{gestureEnabled:false}} name="DoctorExamScreen" component={DoctorExamScreen} /> 
-        <Stack.Screen options={{gestureEnabled:false}} name="DoctorPillsScreen" component={DoctorPillsScreen} /> 
-        <Stack.Screen options={{gestureEnabled:false}} name="DoctorObjectivesScreen" component={DoctorObjectivesScreen} /> 
-        <Stack.Screen options={{gestureEnabled:false}} name="DoctorPressionScreen" component={DoctorPressionScreen} /> 
-        <Stack.Screen options={{gestureEnabled:false}} name="DoctorNutritionScreen" component={DoctorNutritionScreen} /> 
-      </Stack.Navigator>
-    </NavigationContainer>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{
+            headerShown: false
+          }}  initialRouteName="Login">
+            <Stack.Screen options={{gestureEnabled:false}} name="Login" component={LoginScreen} />
+            <Stack.Screen options={{gestureEnabled:false}} name="Homepage" component={Homepage} />
+            <Stack.Screen options={{gestureEnabled:false}} name="ExamsScreen" component={ExamsScreen} />
+            <Stack.Screen options={{gestureEnabled:false}} name="MedicsScreen" component={MedicsScreen} />
+            <Stack.Screen options={{gestureEnabled:false}} name="ObjectivesScreen" component={ObjectivesScreen} />
+            <Stack.Screen options={{gestureEnabled:false}} name="NutritionScreen" component={NutritionScreen} />
+            <Stack.Screen options={{gestureEnabled:false}} name="MedicationScreen" component={MedicationScreen} />
+            <Stack.Screen options={{gestureEnabled:false}} name="DoctorHomeScreen" component={DoctorHomeScreen} />
+            <Stack.Screen options={{gestureEnabled:false}} name="DoctorExamScreen" component={DoctorExamScreen} /> 
+            <Stack.Screen options={{gestureEnabled:false}} name="DoctorPillsScreen" component={DoctorPillsScreen} /> 
+            <Stack.Screen options={{gestureEnabled:false}} name="DoctorObjectivesScreen" component={DoctorObjectivesScreen} /> 
+            <Stack.Screen options={{gestureEnabled:false}} name="DoctorPressionScreen" component={DoctorPressionScreen} /> 
+            <Stack.Screen options={{gestureEnabled:false}} name="DoctorNutritionScreen" component={DoctorNutritionScreen} /> 
+          </Stack.Navigator>
+        </NavigationContainer>
   );
 }
 

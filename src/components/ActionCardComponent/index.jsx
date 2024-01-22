@@ -3,7 +3,7 @@ import React from 'react'
 import FontAwessome from '@expo/vector-icons/FontAwesome'
 
 
-function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText, cHeight, cWidth, navigation, pageToGo}) {
+function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText, cHeight, cWidth, navigation, pageToGo, clickEvent}) {
   const handleRedirect = () => {
     if(pageToGo !== ""){
       navigation.navigate(pageToGo);
@@ -27,7 +27,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
 
   if(bgColor == "#025688"){
     return(
-      <TouchableHighlight onPress={handleRedirect}>
+      <TouchableHighlight onPress={clickEvent}>
        <View style={styles(bgColor).btnContainerBig}>
           <Text style={styles().mainTextBig}>{text}</Text>
            {renderIcon}
