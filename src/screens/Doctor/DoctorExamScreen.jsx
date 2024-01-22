@@ -74,7 +74,7 @@ import * as DocumentPicker from 'expo-document-picker';
             
             <View style={styles().submitFileWrapper}>
             <TouchableOpacity onPress={handlePickDocument } style={styles().submitFile}>
-              <FontAwessome style={{marginRight:10}} onPress={() =>{navigation.goBack()}} name={"paperclip"} size={24} />
+              <FontAwessome style={{marginRight:10}}  name={"paperclip"} size={24} />
               <Text>{pickedDocument ? pickedDocument.assets[0].name : "Escolher Documento"}</Text>
             </TouchableOpacity>
             </View>

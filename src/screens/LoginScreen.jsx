@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }) {
                 style={styles.submitButton}
                 onPress={() => {
                   
-                  navigation.navigate('Homepage');
+                  navigation.navigate('DoctorHomeScreen');
                 }}
               >
                 <Text style={styles.buttonText}>Login</Text>
