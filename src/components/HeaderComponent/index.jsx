@@ -17,7 +17,7 @@ const HeaderComponent = memo(({navigation, userType, userId}) => {
           {userType === 0 ?
           <View style={styles.buttonsWrapper}>
           <ScrollView horizontal={true} style={styles.srollButtons}> 
-              <ButtonComponent text={"Resultados"} icon={"star"}/>
+              <ButtonComponent text={"Resultados"} icon={"star"} navigation={navigation} pageToNavigate={"PressionScreen"}/>
               <ButtonComponent text={"Exames"} icon={"file"} navigation={navigation} pageToNavigate={"ExamsScreen"}/>
               <ButtonComponent text={"Nutrição"} icon={"folder"} navigation={navigation} pageToNavigate={"NutritionScreen"}/>
               <ButtonComponent text={"Médicos"} icon={"user-md"} navigation={navigation} pageToNavigate={"MedicsScreen"}/>

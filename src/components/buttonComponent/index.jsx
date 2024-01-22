@@ -1,4 +1,4 @@
-import {StyleSheet, View, Text, Button, TouchableHighlight } from 'react-native';
+import {StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
 import React from 'react'
 import FontAwessome from '@expo/vector-icons/FontAwesome'
 
@@ -10,14 +10,14 @@ function ButtonComponent({text, color, icon, size, navigation, pageToNavigate}) 
   };
 
   return (
-    <TouchableHighlight onPress={onPressButton}>
+    <TouchableOpacity onPress={onPressButton}>
      <View style={styles(color, size).btnContainer}>
          <FontAwessome name={icon} size={24} />
          {text !== "" ?
          <Text>{text}</Text>
         :""}
      </View>
- </TouchableHighlight>
+ </TouchableOpacity>
 
   )
 }

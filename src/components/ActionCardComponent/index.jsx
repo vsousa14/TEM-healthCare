@@ -1,4 +1,4 @@
-import {StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import React from 'react'
 import FontAwessome from '@expo/vector-icons/FontAwesome'
 
@@ -27,18 +27,18 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
 
   if(bgColor == "#025688"){
     return(
-      <TouchableHighlight onPress={clickEvent}>
+      <TouchableOpacity onPress={clickEvent}>
        <View style={styles(bgColor).btnContainerBig}>
           <Text style={styles().mainTextBig}>{text}</Text>
            {renderIcon}
            
        </View>
-   </TouchableHighlight>
+   </TouchableOpacity>
     )
   }
   else if(iconPos === "left" && actionIcon == false && bgColor== "#ffffff"){
     return (
-      <TouchableHighlight onPress={handleRedirect}>
+      <TouchableOpacity onPress={handleRedirect}>
        <View style={styles(bgColor).btnContainer}>
           {renderIcon}
            <View style={styles().textWrapper}>
@@ -48,12 +48,12 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
            
            <FontAwessome name={"chevron-right"} size={16} />
        </View>
-   </TouchableHighlight>
+   </TouchableOpacity>
   
     )
   }else if(iconPos === "right" && bgColor== "#ffffff"){
     return (
-      <TouchableHighlight onPress={handleRedirect}>
+      <TouchableOpacity onPress={handleRedirect}>
        <View style={styles(bgColor).btnContainer}>
        <View style={styles().textWrapper}>
            <Text style={styles().mainText}>{text}</Text>
@@ -62,7 +62,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
            {renderIcon}
            
        </View>
-   </TouchableHighlight>
+   </TouchableOpacity>
   
     )
   }

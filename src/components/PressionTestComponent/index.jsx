@@ -81,7 +81,7 @@ function PressionTestComponent() {
         {showButton && (
           <TouchableOpacity onPress={startUpdating}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Começar Teste</Text>
+              <Text style={styles.buttonText}>Iniciar Teste</Text>
             </View>
           </TouchableOpacity>
         )}
