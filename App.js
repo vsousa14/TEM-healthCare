@@ -15,6 +15,7 @@ import DoctorExamScreen from './src/screens/Doctor/DoctorExamScreen';
 import DoctorPillsScreen from './src/screens/Doctor/DoctorPillsScreen';
 import DoctorObjectivesScreen from './src/screens/Doctor/DoctorObjectivesScreen';
 import DoctorPressionScreen from './src/screens/Doctor/DoctorPressionScreen';
+import DoctorNutritionScreen from './src/screens/Doctor/DoctorNutritionScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ export default function App() {
         <Stack.Screen options={{gestureEnabled:false}} name="DoctorPillsScreen" component={DoctorPillsScreen} /> 
         <Stack.Screen options={{gestureEnabled:false}} name="DoctorObjectivesScreen" component={DoctorObjectivesScreen} /> 
         <Stack.Screen options={{gestureEnabled:false}} name="DoctorPressionScreen" component={DoctorPressionScreen} /> 
+        <Stack.Screen options={{gestureEnabled:false}} name="DoctorNutritionScreen" component={DoctorNutritionScreen} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

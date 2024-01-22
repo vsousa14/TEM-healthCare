@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, FlatList, ScrollView } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 import CollapseComponent from '../components/CollapseComponent';
@@ -22,40 +22,26 @@ function NutritionScreen({ navigation }) {
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Nutrição</Text>
         </View>
 
-        <FlatList
-          data={nutritionplan}
-          keyExtractor={(item) => item.dayofweek}
-          renderItem={({ item }) => (
-            <CollapseComponent dayofweek={item.dayofweek} items={item.items} />
-          )}
-        />
+        <ScrollView>
+        <CollapseComponent dayofweek={"Segunda-Feira"} items={itemsPlan} isEditable={true}/>
+        </ScrollView>
+        
       </View>
     </SafeAreaView>
   );
 }
 
-const nutritionplan = [
-  {
-    dayofweek: 'Segunda-Feira',
-    items: [
-        {
-        id: 1,
-        title: 'Pequeno Almoço',
-        desc: 'Alguma coisa para comer bla bla bla',
-        }
-    ]
-  },
-  {
-    dayofweek: 'Terça-Feira',
-    items: [
-        {
-        id: 1,
-        title: 'Pequeno Almoço',
-        desc: 'Alguma coisa para comer bla bla bla',
-        }
-    ]
-  },
-];
+const itemsPlan =  [
+    {
+    palmoco: 'Alguma coisa para comer bla bla bla',
+    mmanha: 'Alguma coisa para comer bla bla bla',
+    almoco: 'Alguma coisa para comer bla bla bla',
+    lanche1: 'Alguma coisa para comer bla bla bla',
+    lanche2: 'Alguma coisa para comer bla bla bla',
+    jantar: 'Alguma coisa para comer bla bla bla',
+    ceia: 'Alguma coisa para comer bla bla bla',
+    }
+]
 
 const styles = () =>
   StyleSheet.create({
