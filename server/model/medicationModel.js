@@ -48,4 +48,13 @@ const Medication = sequelize.define(
 Medication.belongsTo(User, { foreignKey: "u_id", as: "patient_id" });
 Medication.belongsTo(User, { foreignKey: "u_doc_id", as: "doc_id" });
 
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
+
 module.exports = Medication;

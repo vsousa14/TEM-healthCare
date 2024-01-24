@@ -21,4 +21,13 @@ const ExamCategorias = sequelize.define(
   }
 );
 
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
+
 module.exports = ExamCategorias;

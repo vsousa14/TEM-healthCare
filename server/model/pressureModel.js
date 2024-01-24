@@ -32,6 +32,7 @@ const Pressure = sequelize.define(
     press_date: {
       type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
   },
   {
@@ -40,5 +41,14 @@ const Pressure = sequelize.define(
 );
 
 Pressure.belongsTo(User, { foreignKey: "u_id" });
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
 
 module.exports = Pressure;

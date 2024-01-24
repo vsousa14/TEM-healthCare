@@ -19,16 +19,26 @@ const Objectives = sequelize.define("Objectives", {
       key: "u_id",
     },
   },
-  obj_itens: {
-    type: DataTypes.JSON,
+  obj_desc: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   obj_date: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: null
   },
 });
 
 Objectives.belongsTo(User, { foreignKey: "u_id" });
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
 
 module.exports = Objectives;

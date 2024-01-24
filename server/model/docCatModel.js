@@ -6,7 +6,7 @@ const DocCategorias = sequelize.define(
   {
     doc_cat_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true, 
+      primaryKey: true,
       allowNull: false,
       autoIncrement: true,
       unique: true,
@@ -20,5 +20,14 @@ const DocCategorias = sequelize.define(
     tableName: "doc_categories",
   }
 );
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
 
 module.exports = DocCategorias;

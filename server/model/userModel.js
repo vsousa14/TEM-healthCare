@@ -33,6 +33,7 @@ const User = sequelize.define(
     u_role: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: 0,
     },
     doc_cat_id: {
       type: DataTypes.INTEGER,
@@ -50,5 +51,14 @@ const User = sequelize.define(
 );
 
 User.belongsTo(DocCategorias, { foreignKey: "doc_cat_id" });
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
 
 module.exports = User;

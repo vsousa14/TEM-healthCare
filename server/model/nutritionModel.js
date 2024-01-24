@@ -35,4 +35,13 @@ const Nutrition = sequelize.define("Nutrition", {
 
 Nutrition.belongsTo(User, { foreignKey: "u_id" });
 
-module.exports = Nutrition
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
+
+module.exports = Nutrition;

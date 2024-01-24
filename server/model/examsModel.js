@@ -34,8 +34,8 @@ const Exams = sequelize.define(
       allowNull: false,
     },
     exam_file: {
-      type: DataTypes.BLOB,
-      allowNull: false,
+      type: DataTypes.TEXT,
+      allowNull: true,
       unique: true,
     },
   },
@@ -46,5 +46,14 @@ const Exams = sequelize.define(
 
 Exams.belongsTo(User, { foreignKey: "u_id" });
 Exams.belongsTo(ExamCategorias, { foreignKey: "exam_cat_id" });
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database and tables have been synchronized.");
+  })
+  .catch((error) => {
+    console.error("Error synchronizing database:", error);
+  });
 
 module.exports = Exams;
