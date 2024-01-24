@@ -28,6 +28,9 @@ const Objectives = sequelize.define("Objectives", {
     allowNull: true,
     defaultValue: null
   },
+},
+{
+  tableName: "objetivos"
 });
 
 Objectives.belongsTo(User, { foreignKey: "u_id" });

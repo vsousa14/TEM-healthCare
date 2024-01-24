@@ -31,6 +31,8 @@ const Nutrition = sequelize.define("Nutrition", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+}, {
+  tableName: "nutricao"
 });
 
 Nutrition.belongsTo(User, { foreignKey: "u_id" });

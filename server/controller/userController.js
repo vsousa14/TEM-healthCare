@@ -1,8 +1,8 @@
 import User from "../model/userModel";
 import bcrypt from "bcrypt";
-import authMiddleware, { jwtKEY } from "../middleware/authMiddleware";
+import authMiddleware from "../middleware/authMiddleware";
 
-const err500 = "Errob Interno de Servidor";
+const err500 = "Erro Interno de Servidor";
 
 const UserController = {
   getAllUsers: async (req, res) => {
@@ -42,18 +42,25 @@ const UserController = {
     }
   },
 
-  getUserByUsername: async (req, res) => {
+  getUserByName: async (req, res) => {
     try {
       const { u_nome } = req.params;
-      const user = await User.findOne({
-        where: { u_nome },
-      });
 
-      if (!user) {
-        return res.status(404).json({ error: "Utilizador não encontrado" });
+      if (u_nome) {
+        const user = await User.findOne({
+          where: { u_nome },
+        });
+
+        if (!user) {
+          return res.status(404).json({ error: "Utilizador não encontrado" });
+        }
+
+        res.status(200).json(user);
+      } else {
+        const allUsers = await User.findAll();
+
+        res.status(200).json(allUsers);
       }
-
-      res.status(200).json(user);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
