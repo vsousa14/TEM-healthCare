@@ -2,6 +2,7 @@ import User from "../model/userModel";
 import bcrypt from "bcrypt";
 import authMiddleware from "../middleware/authMiddleware";
 
+
 const err500 = "Erro Interno de Servidor";
 
 const UserController = {
@@ -131,15 +132,15 @@ const UserController = {
 
   loginUser: async (req, res) => {
     try {
-      const { u_username, u_password } = req.body;
+      const { u_nome, u_password } = req.body;
 
-      if (!u_username || !u_password) {
+      if (!u_nome || !u_password) {
         return res.status(400).json({
           error: "Nome de Utilizador e Palavra-passe são necessários",
         });
       }
 
-      const user = await User.findOne({ where: { u_username } });
+      const user = await User.findOne({ where: { u_nome } });
       const validPass = await bcrypt.compare(u_password, user.u_password);
       if (!user || !validPass) {
         res
@@ -159,21 +160,6 @@ const UserController = {
   logoutUser: async (req, res) => {
     localStorage.removeItem(jwtKEY);
     res.status(200).json({ message: "Sessão terminada com sucesso" });
-  },
-
-  checkLoginStatus: async (req, res) => {
-    const token = req.header("Auth");
-
-    if (!token) {
-      return res.status(200).json({ loggedIn: false });
-    }
-
-    try {
-      const decoded = jwt.verify(token, jwtKEY);
-      res.status(200).json({ loggedIn: true, u_id: decoded.u_id });
-    } catch (err) {
-      res.status(200).json({ loggedIn: false });
-    }
   },
 
   // Protected route using authMiddleware and rate limiting

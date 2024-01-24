@@ -5,7 +5,12 @@ const err500 = "Erro Interno de Servidor";
 const NutritionController = {
   createUserPlan: async (req, res) => {
     try {
-    } catch (err) {}
+      const newPlan = await Nutrition.create(req.body);
+      res.status(201).json(newPlan);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err500 });
+    }
   },
 
   getUserPlan: async (req, res) => {

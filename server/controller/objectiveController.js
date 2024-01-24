@@ -12,7 +12,7 @@ const ObjectivesController = {
       console.error(err);
       res.status(500).json({ error: err500 });
     }
-  },  
+  },
 
   getObjectives: async (req, res) => {
     try {
@@ -22,6 +22,22 @@ const ObjectivesController = {
       });
 
       res.status(200).json(objectives);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err500 });
+    }
+  },
+
+  deleteObjective: async (req, res) => {
+    const obj_id = req.params.id;
+    try {
+      const deletedRows = await Objectives.destroy({
+        where: { obj_id: obj_id },
+      });
+      if (deletedRows === 0) {
+        return res.status(404).json({ error: "Objetivo não encontrado" });
+      }
+      res.status(204).send();
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
