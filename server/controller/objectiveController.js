@@ -12,7 +12,7 @@ const ObjectivesController = {
       console.error(err);
       res.status(500).json({ error: err500 });
     }
-  },
+  },  
 
   getObjectives: async (req, res) => {
     try {
