@@ -44,9 +44,9 @@ const UserController = {
 
   getUserByUsername: async (req, res) => {
     try {
-      const { u_username } = req.params;
+      const { u_nome } = req.params;
       const user = await User.findOne({
-        where: { u_username },
+        where: { u_nome },
       });
 
       if (!user) {
