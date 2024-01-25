@@ -24,7 +24,7 @@ const NutritionController = {
       res.status(200).json(userPlan);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ err: err500 });
+      res.status(500).json({ error: err500 });
     }
   },
 
