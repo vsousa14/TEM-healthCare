@@ -1,4 +1,4 @@
-import Exams from "../model/examsModel";
+import Exams from "../model/examsModel.js";
 
 const err500 = "Erro Interno de Servidor";
 
@@ -29,4 +29,4 @@ const ExamController = {
   },
 };
 
-module.exports = ExamController;
+export default ExamController;

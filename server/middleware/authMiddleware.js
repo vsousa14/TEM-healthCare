@@ -1,7 +1,7 @@
-import { verify } from "jsonwebtoken";
+import "dotenv/config";
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
 
-const jwtKEY =
-  "DEJH+kQlxivOpfGxCmB5D47HJJiFqt1zisGGL9y16S2hNFFlZxYhNeN2s2HSz4ki";
 
 function authMiddleware(req, res, next) {
   const token = req.header("Auth");
@@ -11,7 +11,7 @@ function authMiddleware(req, res, next) {
   }
 
   try {
-    const decoded = verify(token, jwtKEY);
+    const decoded = verify(token, process.env.jwtKEY);
     req.user = decoded.user;
     next();
   } catch (err) {
@@ -19,3 +19,5 @@ function authMiddleware(req, res, next) {
     res.status(401).json({ error: "Não autorizado: Token inválido" });
   }
 }
+
+export default authMiddleware;

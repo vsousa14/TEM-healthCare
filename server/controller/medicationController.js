@@ -1,4 +1,4 @@
-import Medication from "../model/medicationModel";
+import Medication from "../model/medicationModel.js";
 
 const err500 = "Erro Interno de Servidor";
 
@@ -62,4 +62,4 @@ const MedicationController = {
   },
 };
 
-module.exports = MedicationController;
+export default MedicationController;

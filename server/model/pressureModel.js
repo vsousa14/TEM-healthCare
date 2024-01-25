@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-const sequelize = require("../config/database");
+import sequelize from "../config/database.js";
 
-const User = require("./userModel");
+import User from "./userModel.js";
 
 const Pressure = sequelize.define(
   "Pressure",
@@ -51,4 +51,4 @@ sequelize
     console.error("Error synchronizing database:", error);
   });
 
-module.exports = Pressure;
+export default Pressure;

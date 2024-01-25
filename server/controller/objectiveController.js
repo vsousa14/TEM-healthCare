@@ -1,4 +1,4 @@
-import Objectives from "../model/objectiveModel";
+import Objectives from "../model/objectiveModel.js";
 
 const err500 = "Erro Interno do Servidor";
 
@@ -45,4 +45,4 @@ const ObjectivesController = {
   },
 };
 
-module.exports = ObjectivesController;
+export default ObjectivesController;

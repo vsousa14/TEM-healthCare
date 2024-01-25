@@ -1,4 +1,4 @@
-import Nutrition from "../model/nutritionModel";
+import Nutrition from "../model/nutritionModel.js";
 
 const err500 = "Erro Interno de Servidor";
 
@@ -52,4 +52,4 @@ const NutritionController = {
   },
 };
 
-module.exports = NutritionController;
+export default NutritionController;

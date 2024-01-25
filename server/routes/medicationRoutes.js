@@ -1,5 +1,5 @@
 import express from "express";
-import MedicationController from "../controller/medicationController";
+import MedicationController from "../controller/medicationController.js";
 
 const medicationRouter = express.Router();
 
@@ -24,4 +24,4 @@ medicationRouter.post(
   MedicationController.sendPrescription
 );
 
-module.exports = medicationRouter;
+export default medicationRouter;

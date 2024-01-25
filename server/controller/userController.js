@@ -1,6 +1,7 @@
-import User from "../model/userModel";
+import User from "../model/userModel.js";
 import bcrypt from "bcrypt";
-import authMiddleware, { jwtKEY } from "../middleware/authMiddleware";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 const err500 = "Erro Interno de Servidor";
 
@@ -84,9 +85,9 @@ const UserController = {
 
       const u_id = newUser.u_id;
 
-      const token = jwt.sign({ u_id: u_id }, jwtKEY);
+      const token = jwt.sign({ u_id: u_id }, process.env.jwtKEY);
 
-      res.status(201).json(newUser, token);
+      res.status(201).json({ newUser, token });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
@@ -146,7 +147,7 @@ const UserController = {
           .json({ error: "Nome de Utilizador ou Palavra-passe inválidos" });
       }
 
-      const token = jwt.sign({ u_id: user.u_id }, jwtKEY);
+      const token = jwt.sign({ u_id: user.u_id }, process.env.jwtKEY);
 
       res.status(200).json({ token });
     } catch (err) {
@@ -156,18 +157,9 @@ const UserController = {
   },
 
   logoutUser: async (req, res) => {
-    localStorage.removeItem(jwtKEY);
+    localStorage.removeItem(process.env.jwtKEY);
     res.status(200).json({ message: "Sessão terminada com sucesso" });
   },
-
-  // Protected route using authMiddleware and rate limiting
-  getProtectedInfo: [
-    authMiddleware,
-    userCreationLimiter,
-    (req, res) => {
-      res.status(200).json({ message: "Esta é uma rota protegida!" });
-    },
-  ],
 };
 
-module.exports = UserController;
+export default UserController;

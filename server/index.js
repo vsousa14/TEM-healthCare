@@ -1,11 +1,11 @@
 import express from "express";
-import authMiddleware from "./middleware/authMiddleware";
-import userRoutes from "./routes/userRoutes";
-import examRoutes from "./routes/examRoutes";
-import medicationRoutes from "./routes/medicationRoutes";
-import nutritionRoutes from "./routes/nutritionRoutes";
-import objectiveRoutes from "./routes/objectiveRoutes";
-import pressureRoutes from "./routes/pressureRoutes";
+import authMiddleware from "./middleware/authMiddleware.js";
+import userRoutes from "./routes/userRoutes.js";
+import examRoutes from "./routes/examRoutes.js";
+import medicationRoutes from "./routes/medicationRoutes.js";
+import nutritionRoutes from "./routes/nutritionRoutes.js";
+import objectiveRoutes from "./routes/objectiveRoutes.js";
+import pressureRoutes from "./routes/pressureRoutes.js";
 
 const app = express();
 app.use(express.json());

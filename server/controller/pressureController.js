@@ -1,4 +1,4 @@
-import Pressure from "../model/pressureModel";
+import Pressure from "../model/pressureModel.js";
 
 const err500 = "Erro Interno de Servidor";
 
@@ -41,4 +41,4 @@ const PressureController = {
   },
 };
 
-module.exports = PressureController;
+export default PressureController;

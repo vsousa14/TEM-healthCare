@@ -1,5 +1,5 @@
 import express from "express";
-import ObjectivesController from "../controller/objectiveController";
+import ObjectivesController from "../controller/objectiveController.js";
 
 const objectivesRoutes = express.Router();
 
@@ -10,4 +10,4 @@ objectivesRoutes.delete(
   ObjectivesController.deleteObjective
 );
 
-module.exports = objectivesRoutes;
+export default objectivesRoutes;

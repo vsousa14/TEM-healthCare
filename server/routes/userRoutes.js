@@ -1,23 +1,17 @@
 import express from "express";
-import UserController from "../controller/userController";
-import authMiddleware, { jwtKEY } from "../middleware/authMiddleware";
+import UserController from "../controller/userController.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const userRoutes = express.Router();
 
-userRoutes.get("/users", authMiddleware, UserController.getAllUsers);
-userRoutes.get("/users/:u_id", authMiddleware, UserController.getUserById);
-userRoutes.get("/doctors", authMiddleware, UserController.getDoctors);
-userRoutes.get("/users/:u_nome?", authMiddleware, UserController.getUserByName);
-userRoutes.post("/users", authMiddleware, UserController.createUser);
-userRoutes.put("/users/:u_id", authMiddleware, UserController.updateUserById);
-userRoutes.delete("/users/:u_id", authMiddleware, UserController.deleteUser);
+userRoutes.get("/getall", authMiddleware, UserController.getAllUsers);
+userRoutes.get("/getbyid/:u_id", authMiddleware, UserController.getUserById);
+userRoutes.get("/getdocs", authMiddleware, UserController.getDoctors);
+userRoutes.get("/getuser/:u_nome?", authMiddleware, UserController.getUserByName);
+userRoutes.post("/create", UserController.createUser);
+userRoutes.put("/update/:u_id", authMiddleware, UserController.updateUserById);
+userRoutes.delete("/delete/:u_id", authMiddleware, UserController.deleteUser);
 userRoutes.post("/login", UserController.loginUser);
 userRoutes.post("/logout", authMiddleware, UserController.logoutUser);
 
-userRoutes.get(
-  "/protected-info",
-  authMiddleware,
-  UserController.getProtectedInfo
-);
-
-module.exports = userRoutes;
+export default userRoutes;

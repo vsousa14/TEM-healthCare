@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-const sequelize = require("../config/database");
+import sequelize from "../config/database.js";
 
 const DocCategorias = sequelize.define(
   "DocCategorias",
@@ -30,4 +30,4 @@ sequelize
     console.error("Error synchronizing database:", error);
   });
 
-module.exports = DocCategorias;
+export default DocCategorias;

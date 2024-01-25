@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-const sequelize = require("../config/database");
-const User = require("./userModel");
-const ExamCategorias = require("./examsCatModel");
+import sequelize from "../config/database.js";
+import User from "./userModel.js";
+import ExamCategorias from "./examsCatModel.js";
 
 const Exams = sequelize.define(
   "Exams",
@@ -56,4 +56,4 @@ sequelize
     console.error("Error synchronizing database:", error);
   });
 
-module.exports = Exams;
+export default Exams;

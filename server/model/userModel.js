@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-const sequelize = require("../config/database");
+import sequelize from "../config/database.js";
 
-const DocCategorias = require("./docCatModel");
+import DocCategorias from "./docCatModel.js";
 
 const User = sequelize.define(
   "User",
@@ -33,12 +33,22 @@ const User = sequelize.define(
     },
     doc_cat_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null,
       references: {
         model: DocCategorias,
         key: "doc_cat_id",
       },
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
     },
   },
   {
@@ -57,4 +67,4 @@ sequelize
     console.error("Error synchronizing database:", error);
   });
 
-module.exports = User;
+export default User;
