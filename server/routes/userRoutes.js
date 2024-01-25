@@ -14,6 +14,6 @@ userRoutes.delete("/users/:id", authMiddleware, UserController.deleteUser);
 userRoutes.post("/login", authMiddleware, UserController.loginUser);
 userRoutes.post("/logout", authMiddleware, UserController.logoutUser);
 
-userRoutes.get("/protected-info", UserController.getProtectedInfo);
+userRoutes.get("/protected-info", authMiddleware, UserController.getProtectedInfo);
 
 module.exports = userRoutes;
