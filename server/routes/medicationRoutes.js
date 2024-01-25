@@ -12,15 +12,15 @@ medicationRouter.post(
   MedicationController.createPrescription
 );
 medicationRouter.delete(
-  "/prescriptions",
+  "/prescriptions/:id",
   MedicationController.deletePrescription
 );
 medicationRouter.get(
-  "/prescriptions/file",
+  "/prescriptions/file/:id",
   MedicationController.requestPrescription
 );
 medicationRouter.post(
-  "/prescriptions/file",
+  "/prescriptions/file/:id",
   MedicationController.sendPrescription
 );
 

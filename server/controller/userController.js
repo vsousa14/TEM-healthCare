@@ -2,7 +2,6 @@ import User from "../model/userModel";
 import bcrypt from "bcrypt";
 import authMiddleware, { jwtKEY } from "../middleware/authMiddleware";
 
-
 const err500 = "Erro Interno de Servidor";
 
 const UserController = {
@@ -70,8 +69,8 @@ const UserController = {
 
   createUser: async (req, res) => {
     try {
-      const { u_nome, u_sobrenome, u_password, u_email } = req.body;
-      if (!u_nome || !u_sobrenome || !u_password || !u_email) {
+      const { u_nome, u_password, u_email } = req.body;
+      if (!u_nome || !u_password || !u_email) {
         return res
           .status(400)
           .json({ error: "Todos os campos são necessários" });
@@ -79,7 +78,6 @@ const UserController = {
       const hashPass = await bcrypt.hash(u_password, 10);
       const newUser = await User.create({
         u_nome,
-        u_sobrenome,
         u_password: hashPass,
         u_email,
       });

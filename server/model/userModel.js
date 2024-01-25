@@ -17,10 +17,6 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    u_sobrenome: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     u_password: {
       type: DataTypes.STRING,
       allowNull: false,
