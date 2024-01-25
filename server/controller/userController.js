@@ -16,7 +16,7 @@ const UserController = {
     }
   },
 
-  getUserByID: async (req, res) => {
+  getUserById: async (req, res) => {
     const u_id = req.params.id;
     try {
       const user = await User.findbyPk(u_id);
@@ -114,7 +114,7 @@ const UserController = {
     }
   },
 
-  deleteUserById: async (req, res) => {
+  deleteUser: async (req, res) => {
     const u_id = req.params.id;
     try {
       const deletedRows = await User.destroy({
