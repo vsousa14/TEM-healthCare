@@ -1,4 +1,5 @@
 import { verify } from "jsonwebtoken";
+
 const jwtKEY =
   "DEJH+kQlxivOpfGxCmB5D47HJJiFqt1zisGGL9y16S2hNFFlZxYhNeN2s2HSz4ki";
 

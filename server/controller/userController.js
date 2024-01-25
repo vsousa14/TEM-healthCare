@@ -1,6 +1,6 @@
 import User from "../model/userModel";
 import bcrypt from "bcrypt";
-import authMiddleware from "../middleware/authMiddleware";
+import authMiddleware, { jwtKEY } from "../middleware/authMiddleware";
 
 
 const err500 = "Erro Interno de Servidor";
