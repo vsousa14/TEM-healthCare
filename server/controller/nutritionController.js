@@ -51,6 +51,20 @@ const NutritionController = {
       res.status(500).json({ error: err500 });
     }
   },
+  getByWeekday: async (req, res) => {
+    try {
+      const { u_id, weekday } = req.params;
+
+      const weekdayPlan = await Nutrition.findAll({
+        where: { u_id: u_id, weekday: weekday },
+      });
+
+      res.status(200).json(weekdayPlan);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err500 });
+    }
+  },
 };
 
 export default NutritionController;
