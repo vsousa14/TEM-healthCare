@@ -3,37 +3,58 @@ import sequelize from "../config/database.js";
 
 import User from "./userModel.js";
 
-const Nutrition = sequelize.define("Nutrition", {
-  nutr_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    autoIncrement: true,
-    unique: true,
-  },
-  u_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: User,
-      key: "u_id",
+const Nutrition = sequelize.define(
+  "Nutrition",
+  {
+    nutr_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+      unique: true,
+    },
+    u_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
+        key: "u_id",
+      },
+    },
+    mealtype: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    weekday: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    nutr_desc: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
     },
   },
-  nutr_dayoftheweek: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  {
+    hooks: {
+      beforeUpdate: (nutrition, options) => {
+        nutrition.updatedAt = new Date();
+      },
+    },
   },
-  nutr_mealtype: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  nutr_desc: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-}, {
-  tableName: "nutricao"
-});
+  {
+    tableName: "nutricao",
+  }
+);
 
 Nutrition.belongsTo(User, { foreignKey: "u_id" });
 

@@ -5,7 +5,7 @@ const err500 = "Erro Interno de Servidor";
 const ExamController = {
   getExams: async (req, res) => {
     try {
-      const u_id = req.params.id;
+      const u_id = req.params.u_id;
 
       const exams = await Exams.findAll({
         where: { u_id: u_id },

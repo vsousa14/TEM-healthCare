@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
+import User from "./userModel.js";
+
 const DocCategorias = sequelize.define(
   "DocCategorias",
   {
@@ -15,11 +17,22 @@ const DocCategorias = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    },
   },
   {
     tableName: "doc_categories",
   }
 );
+
 
 sequelize
   .sync({ force: false })

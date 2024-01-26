@@ -4,7 +4,7 @@ const { verify } = pkg;
 
 
 function authMiddleware(req, res, next) {
-  const token = req.header("Auth");
+  const token = req.header("token");
 
   if (!token) {
     return res.status(401).json({ error: "Não autorizado: Token em falta" });

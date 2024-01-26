@@ -28,6 +28,16 @@ const Objectives = sequelize.define("Objectives", {
     allowNull: true,
     defaultValue: null
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+  },
 },
 {
   tableName: "objetivos"

@@ -4,23 +4,23 @@ import MedicationController from "../controller/medicationController.js";
 const medicationRouter = express.Router();
 
 medicationRouter.get(
-  "/prescriptions/:u_id",
+  "/getall/:u_id",
   MedicationController.getAllPrescriptions
 );
 medicationRouter.post(
-  "/prescriptions",
+  "/create",
   MedicationController.createPrescription
 );
 medicationRouter.delete(
-  "/prescriptions/:id",
+  "/delete/:id",
   MedicationController.deletePrescription
 );
 medicationRouter.get(
-  "/prescriptions/file/:id",
+  "/download/file/:id",
   MedicationController.requestPrescription
 );
 medicationRouter.post(
-  "/prescriptions/file/:id",
+  "/upload/file/:id",
   MedicationController.sendPrescription
 );
 

@@ -36,7 +36,7 @@ const User = sequelize.define(
       allowNull: true,
       defaultValue: null,
       references: {
-        model: DocCategorias,
+        model: "DocCategorias",
         key: "doc_cat_id",
       },
     },
@@ -52,11 +52,19 @@ const User = sequelize.define(
     },
   },
   {
+    hooks: {
+      beforeUpdate: (user, options) => {
+        user.updatedAt = new Date();
+      },
+    },
+  },
+  {
     tableName: "users",
   }
 );
 
 User.belongsTo(DocCategorias, { foreignKey: "doc_cat_id" });
+DocCategorias.hasMany(User, { foreignKey: "doc_cat_id" });
 
 sequelize
   .sync({ force: false })

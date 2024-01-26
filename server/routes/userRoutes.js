@@ -11,7 +11,6 @@ userRoutes.get("/getuser/:u_nome?", authMiddleware, UserController.getUserByName
 userRoutes.post("/create", UserController.createUser);
 userRoutes.put("/update/:u_id", authMiddleware, UserController.updateUserById);
 userRoutes.delete("/delete/:u_id", authMiddleware, UserController.deleteUser);
-userRoutes.post("/login", UserController.loginUser);
-userRoutes.post("/logout", authMiddleware, UserController.logoutUser);
+userRoutes.post("/login", UserController.loginUser); 
 
 export default userRoutes;

@@ -1,6 +1,8 @@
 import User from "../model/userModel.js";
+import DocCategorias from "../model/docCatModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import sequelize from "../config/database.js";
 import "dotenv/config";
 
 const err500 = "Erro Interno de Servidor";
@@ -17,9 +19,10 @@ const UserController = {
   },
 
   getUserById: async (req, res) => {
-    const u_id = req.params.id;
+    const u_id = req.params.u_id;
+
     try {
-      const user = await User.findbyPk(u_id);
+      const user = await User.findByPk(u_id);
       if (!user) {
         return res.status(404).json({ error: "Utilizador não encontrado" });
       }
@@ -36,7 +39,14 @@ const UserController = {
         where: { u_role: 1 },
       });
 
-      res.status(200).json(doctors);
+      const doc_categorias = await DocCategorias.findAll({
+        attributes: ["doc_cat_id", "doc_cat_name"],
+        where: sequelize.literal(
+          "EXISTS (SELECT 1 FROM `users` WHERE `users`.`doc_cat_id` IS NOT NULL AND `users`.`doc_cat_id` = `DocCategorias`.`doc_cat_id`)"
+        ),
+      });
+
+      res.status(200).json({ doctors, doc_categorias });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
@@ -71,11 +81,23 @@ const UserController = {
   createUser: async (req, res) => {
     try {
       const { u_nome, u_password, u_email } = req.body;
+
       if (!u_nome || !u_password || !u_email) {
         return res
           .status(400)
           .json({ error: "Todos os campos são necessários" });
       }
+
+      const existingUser = await User.findOne({
+        where: { u_email },
+      });
+
+      if (existingUser) {
+        return res
+          .status(400)
+          .json({ error: "Este e-mail já se encontra em uso" });
+      }
+
       const hashPass = await bcrypt.hash(u_password, 10);
       const newUser = await User.create({
         u_nome,
@@ -95,16 +117,22 @@ const UserController = {
   },
 
   updateUserById: async (req, res) => {
-    const u_id = req.params.id;
+    const u_id = req.params.u_id;
     try {
-      const [rowsUpdated, [updatedUser]] = await User.update(req.body, {
+      if (req.body.u_password) {
+        req.body.u_password = await bcrypt.hash(req.body.u_password, 10);
+      }
+      
+      const [rowsUpdated] = await User.update(req.body, {
         where: { u_id: u_id },
-        returning: true,
+        returning: true, // This should return the updated rows
       });
 
       if (rowsUpdated === 0) {
         return res.status(404).json({ error: "Utilizador não encontrado" });
       }
+
+      const updatedUser = await User.findByPk(u_id); // Retrieve the updated user
 
       res.status(200).json(updatedUser);
     } catch (err) {
@@ -114,7 +142,7 @@ const UserController = {
   },
 
   deleteUser: async (req, res) => {
-    const u_id = req.params.id;
+    const u_id = req.params.u_id;
     try {
       const deletedRows = await User.destroy({
         where: { u_id: u_id },
@@ -122,7 +150,7 @@ const UserController = {
       if (deletedRows === 0) {
         return res.status(404).json({ error: "Utilizador não encontrado" });
       }
-      res.status(204).send();
+      res.status(200).json({ message: "Utilizador removido com sucesso" });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
@@ -131,34 +159,37 @@ const UserController = {
 
   loginUser: async (req, res) => {
     try {
-      const { u_nome, u_password } = req.body;
+      const { u_email, u_password } = req.body;
 
-      if (!u_nome || !u_password) {
+      if (!u_email || !u_password) {
         return res.status(400).json({
-          error: "Nome de Utilizador e Palavra-passe são necessários",
+          error: "E-mail e Palavra-passe são necessários",
         });
       }
 
-      const user = await User.findOne({ where: { u_nome } });
-      const validPass = await bcrypt.compare(u_password, user.u_password);
-      if (!user || !validPass) {
-        res
+      const user = await User.findOne({ where: { u_email } });
+
+      if (!user) {
+        return res
           .status(401)
-          .json({ error: "Nome de Utilizador ou Palavra-passe inválidos" });
+          .json({ error: "E-mail ou Palavra-passe inválidos" });
+      }
+
+      const validPass = await bcrypt.compare(u_password, user.u_password);
+
+      if (!validPass) {
+        return res
+          .status(401)
+          .json({ error: "E-mail ou Palavra-passe inválidos" });
       }
 
       const token = jwt.sign({ u_id: user.u_id }, process.env.jwtKEY);
 
-      res.status(200).json({ token });
+      res.status(200).json({ user, token });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
     }
-  },
-
-  logoutUser: async (req, res) => {
-    localStorage.removeItem(process.env.jwtKEY);
-    res.status(200).json({ message: "Sessão terminada com sucesso" });
   },
 };
 
