@@ -19,15 +19,12 @@ function ObjectivesScreen({ navigation }) {
                 <FontAwessome style={{marginRight:10}} onPress={() =>{navigation.goBack()}} name={"chevron-left"} size={24} /> 
                 <Text style={{fontSize:20,fontWeight:'bold'}}>Objetivos</Text>
             </View>
-            <Text style={styles().categorySubTitle}>Até 20/09/2023</Text>
         </View>
 
       <ActionCardComponent text={"Caminhada 30 minutos"}/>
+      <ActionCardComponent text={"testes de pressão arterial 1x semana"}/>
 
-            <View style={styles().titleWrapper}>
-                <Text style={{fontSize:20,fontWeight:'bold'}}>Objetivos passados</Text>
-            </View>
-            <ActionCardComponent text={"Caminhada 30 minutos"}/>
+            
         </View>
         </ScrollView>
       </SafeAreaView>

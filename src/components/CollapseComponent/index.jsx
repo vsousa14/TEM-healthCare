@@ -4,7 +4,9 @@ import { StyleSheet } from 'react-native';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 
 const CollapseComponent = ({ dayofweek, items, isEditable }) => {
+ 
   const [expanded, setExpanded] = useState(false);
+  let sendToBD;
   const onItemPress = () => {
     setExpanded(!expanded);
   };
@@ -36,6 +38,8 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
   const handleTextChange = (val, type) => {
     switch (type) {
       case 'palmoco':
+        sendToBD = val;
+        //TODO no onBlur usar o valor da variavel sendToDB e dar reset do valor
         setMealTypes((prevMealTypes) => ({ ...prevMealTypes, palmoco: val }));
         break;
       case 'mmanha':

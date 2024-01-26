@@ -4,12 +4,14 @@ import {SafeAreaView, View, StyleSheet, Text, ScrollView } from 'react-native';
 import HeaderComponent from '../../components/HeaderComponent';
 import PressionCardComponent from '../../components/PressionCardComponent';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
-
+import { useRoute } from '@react-navigation/native';
 
  function DoctorPressionScreen({navigation}) {
+  const route = useRoute();
+  const { uid, uname } = route.params;
     return (
         <SafeAreaView style={{ flex: 1 }}>
-          <HeaderComponent navigation={navigation} userType={1} userId="1"/>
+          <HeaderComponent navigation={navigation} userType={1} userId={uid} uname={uname}/>
           <ScrollView>
             <View style={styles().contentWrapper}>
             <View style={styles().titleWrapper}>

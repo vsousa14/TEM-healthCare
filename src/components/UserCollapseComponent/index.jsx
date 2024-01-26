@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 import ButtonComponent from '../buttonComponent';
 
-const UserCollapseComponent = ({ navigation, username }) => {
+const UserCollapseComponent = ({ navigation,user_id ,username }) => {
   const [expanded, setExpanded] = useState(false);
   const onItemPress = () => {
     setExpanded(!expanded);
@@ -28,12 +28,12 @@ const UserCollapseComponent = ({ navigation, username }) => {
       </View>
       {expanded && (
         <View style={styles().collapseInnerContent}>
-          <ButtonComponent icon={"file"} size={46} navigation={navigation} pageToNavigate={"DoctorExamScreen"}/>
+          <ButtonComponent icon={"file"} size={46} navigation={navigation} pageToNavigate={"DoctorExamScreen"} uid={user_id} uname={username}/>
           {/* <ButtonComponent icon={"history"} size={46}/> */}
-          <ButtonComponent icon={"table"} size={46} navigation={navigation} pageToNavigate={"DoctorPressionScreen"}/>
-          <ButtonComponent icon={"medkit"} size={46} navigation={navigation} pageToNavigate={"DoctorPillsScreen"}/>
-          <ButtonComponent icon={"cutlery"} size={46} navigation={navigation} pageToNavigate={"DoctorNutritionScreen"}/>
-          <ButtonComponent icon={"trophy"} size={46} navigation={navigation} pageToNavigate={"DoctorObjectivesScreen"}/>
+          <ButtonComponent icon={"table"} size={46} navigation={navigation} pageToNavigate={"DoctorPressionScreen"} uid={user_id} uname={username}/>
+          <ButtonComponent icon={"medkit"} size={46} navigation={navigation} pageToNavigate={"DoctorPillsScreen"} uid={user_id} uname={username}/>
+          <ButtonComponent icon={"cutlery"} size={46} navigation={navigation} pageToNavigate={"DoctorNutritionScreen"} uid={user_id} uname={username}/>
+          <ButtonComponent icon={"trophy"} size={46} navigation={navigation} pageToNavigate={"DoctorObjectivesScreen"} uid={user_id} uname={username}/>
         </View>
       )}
     </View>

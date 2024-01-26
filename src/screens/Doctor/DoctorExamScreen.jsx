@@ -5,8 +5,11 @@ import HeaderComponent from '../../components/HeaderComponent';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as DocumentPicker from 'expo-document-picker';
+import { useRoute } from '@react-navigation/native';
 
  function DoctorExamScreen({navigation}) {
+  const route = useRoute();
+  const { uid, uname } = route.params;
   //*states for the description field
   const [desc, setDesc] = React.useState('Test text'); 
 
@@ -37,7 +40,7 @@ import * as DocumentPicker from 'expo-document-picker';
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-          <HeaderComponent navigation={navigation} userType={1} userId="1"/>
+          <HeaderComponent navigation={navigation} userType={1} userId={uid} uname={uname}/>
           <View style={styles().contentWrapper}>
           <View style={styles().titleWrapper}>
           <FontAwessome style={{marginRight:10}} onPress={() =>{navigation.goBack()}} name={"chevron-left"} size={24} /> 

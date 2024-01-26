@@ -1,16 +1,33 @@
-import React, {memo} from 'react'
+import React, {memo, useState} from 'react'
 import { StyleSheet } from 'react-native';
 import { View, Text,ScrollView  } from 'react-native';
 import ButtonComponent from '../buttonComponent';
 import SearchComponent from '../SearchComponent';
+import {useAuth} from '../../context/AuthContext'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HeaderComponent = memo(({navigation, userType, userId}) => {
+const HeaderComponent = memo(({navigation, userType, userId,uname ,onSearch }) => {
+    const {user} = useAuth();
+
+    _retrieveData = async () => {
+      try {
+        const value = await AsyncStorage.getItem('token');
+        if (value !== null) {
+          // We have data!!
+          console.log(value);
+          return value;
+        }
+      } catch (error) {
+        // Error retrieving data
+      }
+    };
+
     return (
         <View>
           <View style={styles.header}>
             <View style={styles.headerTextWrapper}>
             <Text style={styles.headerTexts}>Bem-vindo novamente,</Text>
-            <Text style={styles.headerTexts}>{userType ? "Dr. " : ""}Vasco Sousa</Text>
+            <Text style={styles.headerTexts}>{userType ? "Dr. " : ""}{user ? user.u_nome : 'Usuário não autenticado'}</Text>
             </View>
             
           </View>
@@ -24,7 +41,7 @@ const HeaderComponent = memo(({navigation, userType, userId}) => {
               <ButtonComponent text={"Objetivos"} icon={"trophy"} navigation={navigation} pageToNavigate={"ObjectivesScreen"}/>
             </ScrollView>
           </View>
-         : <SearchComponent userId={userId}/>}
+         : <SearchComponent userId={userId} onSearch={onSearch} uname={uname}/>}
         {/* <Text style={styles.headerText}></Text> */}
       </View>
     );

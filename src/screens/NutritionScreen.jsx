@@ -24,6 +24,12 @@ function NutritionScreen({ navigation }) {
 
         <ScrollView>
         <CollapseComponent dayofweek={"Segunda-Feira"} items={itemsPlan} isEditable={true}/>
+        <CollapseComponent dayofweek={"Terça-Feira"} items={itemsPlan} isEditable={true}/>
+        <CollapseComponent dayofweek={"Quarta-Feira"} items={itemsPlan} isEditable={true}/>
+        <CollapseComponent dayofweek={"Quinta-Feira"} items={itemsPlan} isEditable={true}/>
+        <CollapseComponent dayofweek={"Sexta-Feira"} items={itemsPlan} isEditable={true}/>
+        <CollapseComponent dayofweek={"Sábado"} items={itemsPlan} isEditable={true}/>
+        <CollapseComponent dayofweek={"Domingo"} items={itemsPlan} isEditable={true}/>
         </ScrollView>
         
       </View>
@@ -33,13 +39,13 @@ function NutritionScreen({ navigation }) {
 
 const itemsPlan =  [
     {
-    palmoco: 'Alguma coisa para comer bla bla bla',
-    mmanha: 'Alguma coisa para comer bla bla bla',
-    almoco: 'Alguma coisa para comer bla bla bla',
-    lanche1: 'Alguma coisa para comer bla bla bla',
-    lanche2: 'Alguma coisa para comer bla bla bla',
-    jantar: 'Alguma coisa para comer bla bla bla',
-    ceia: 'Alguma coisa para comer bla bla bla',
+    palmoco: '1 iogurte magro sem açucar + 4 colheres de sopa de cereais sem açucar +1 colher de chá de sementes de linhaça + uma maça fatiada',
+    mmanha: '1 cenoura crua + 2 bolachas de arroz',
+    almoco: 'Sopa sem batata + 1 posta de maruca a vapor com couve cozida + 2 batatas cozidas + 1 ovo',
+    lanche1: '1 Laranja',
+    lanche2: '2 fatias de queijo magro + 5 tomates cherry + 1 colher de chá de sementes de chia',
+    jantar: '1 bife de peru grelhado com espinafres cozidos',
+    ceia: '1 copo de leite magro',
     }
 ]
 

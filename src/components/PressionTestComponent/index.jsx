@@ -1,8 +1,11 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useAuth } from '../../context/AuthContext';
 
 function PressionTestComponent() {
+  const {user} = useAuth();
+  console.log(user.u_id);
   const [heartRate, setHeartRate] = useState();
   const [sysValue, setSysValue] = useState(120);
   const [diaValue, setDiaValue] = useState(80);
@@ -56,6 +59,7 @@ function PressionTestComponent() {
   useEffect(() => {
     if (showMessage) {
       const timeoutId = setTimeout(() => {
+        //fazer pedido para submeter teste pressao arterial
         setShowMessage(false);
         setShowButton(true);
         console.log('Heart Rate:', heartRate);

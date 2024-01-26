@@ -4,9 +4,9 @@ import FontAwessome from '@expo/vector-icons/FontAwesome'
 
 
 
-function ButtonComponent({text, color, icon, size, navigation, pageToNavigate}) {
+function ButtonComponent({text, color, icon, size, navigation, pageToNavigate, uid, uname}) {
   const onPressButton = () => {
-    navigation.navigate(pageToNavigate);
+    navigation.navigate(pageToNavigate,{uid,uname});
   };
 
   return (

@@ -1,18 +1,24 @@
 import {StyleSheet, View, Text, TouchableHighlight, TextInput } from 'react-native';
-import React from 'react'
+import React,{useState} from 'react'
 import FontAwessome from '@expo/vector-icons/FontAwesome'
 
-function SearchComponent({userId}) {
+function SearchComponent({userId,uname ,onSearch }) {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = () => {
+    onSearch(searchQuery);
+  };
+
   return (
     <View style={styles().SearchWrapper}>
       {userId != "0" ?
         <View style={styles().sectionStyle}>
-          <Text style={styles().userText}>John Doe</Text>
+          <Text style={styles().userText}>{uname}</Text>
         </View>
        :
        <View style={styles().sectionStyle}>
-            <TextInput style={{flex:1}} placeholder='Procurar Utente' underlineColorAndroid={'transparent'}/>
-            <FontAwessome style={styles().iconStyle} name={"search"} size={16} />
+            <TextInput style={{flex:1}} placeholder='Procurar Utente' value={searchQuery} onChangeText={(text) => setSearchQuery(text)} underlineColorAndroid={'transparent'}/>
+            <FontAwessome style={styles().iconStyle} onPress={handleSearch} name={"search"} size={16} />
        </View>
        
        }

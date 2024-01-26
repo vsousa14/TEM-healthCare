@@ -20,7 +20,7 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
   }
 
   if(icon != ""){
-    renderIcon = <FontAwessome name={icon} onPress={() =>{}} size={24} />
+    renderIcon = <FontAwessome name={icon} onPress={clickEvent} size={24} />
   }else{
     renderIcon
   }
