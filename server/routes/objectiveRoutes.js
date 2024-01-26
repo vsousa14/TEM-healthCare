@@ -3,10 +3,10 @@ import ObjectivesController from "../controller/objectiveController.js";
 
 const objectivesRoutes = express.Router();
 
-objectivesRoutes.post("/objectives", ObjectivesController.createObjective);
-objectivesRoutes.get("/objectives/:u_id", ObjectivesController.getObjectives);
+objectivesRoutes.post("/create", ObjectivesController.createObjective);
+objectivesRoutes.get("/get/:u_id", ObjectivesController.getObjectives);
 objectivesRoutes.delete(
-  "/objectives/:id",
+  "/delete/:id",
   ObjectivesController.deleteObjective
 );
 

@@ -16,7 +16,7 @@ const ObjectivesController = {
 
   getObjectives: async (req, res) => {
     try {
-      const u_id = req.params.id;
+      const u_id = req.params.u_id;
       const objectives = await Objectives.findAll({
         where: { u_id: u_id },
       });
@@ -37,7 +37,7 @@ const ObjectivesController = {
       if (deletedRows === 0) {
         return res.status(404).json({ error: "Objetivo não encontrado" });
       }
-      res.status(204).send();
+      res.status(200).json({ message: "Objetivo removido com sucesso" });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });

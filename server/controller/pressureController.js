@@ -5,13 +5,12 @@ const err500 = "Erro Interno de Servidor";
 const PressureController = {
   makePressionTest: async (req, res) => {
     try {
-      const { u_id, press_sys, press_dia, press_date } = req.body;
+      const { u_id, press_sys, press_dia } = req.body;
 
       const newPressure = await Pressure.create({
         u_id,
         press_sys,
         press_dia,
-        press_date,
       });
 
       return res.status(201).json(newPressure);
@@ -28,9 +27,6 @@ const PressureController = {
         where: {
           u_id: u_id,
         },
-        order: [["press_date", "DESC"]],
-        limit: 10,
-        offset: 1,
       });
 
       res.status(200).json(pressures);
