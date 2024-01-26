@@ -10,7 +10,9 @@ const err500 = "Erro Interno de Servidor";
 const UserController = {
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({
+        where: { u_role: 0 },
+      });
       res.status(200).json(users);
     } catch (err) {
       console.error(err);
@@ -122,7 +124,7 @@ const UserController = {
       if (req.body.u_password) {
         req.body.u_password = await bcrypt.hash(req.body.u_password, 10);
       }
-      
+
       const [rowsUpdated] = await User.update(req.body, {
         where: { u_id: u_id },
         returning: true, // This should return the updated rows

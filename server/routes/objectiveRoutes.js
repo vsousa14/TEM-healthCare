@@ -5,9 +5,7 @@ const objectivesRoutes = express.Router();
 
 objectivesRoutes.post("/create", ObjectivesController.createObjective);
 objectivesRoutes.get("/get/:u_id", ObjectivesController.getObjectives);
-objectivesRoutes.delete(
-  "/delete/:id",
-  ObjectivesController.deleteObjective
-);
+objectivesRoutes.delete("/delete/:id", ObjectivesController.deleteObjective);
+objectivesRoutes.get("/lasthree", ObjectivesController.getLastThree);
 
 export default objectivesRoutes;
