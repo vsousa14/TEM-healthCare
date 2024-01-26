@@ -32,7 +32,9 @@ const NutritionController = {
     try {
       const nutr_id = req.params.nutr_id;
 
-      const [rowsUpdated] = await Nutrition.update(req.body, {
+      const updateData = { ...req.body, updatedAt: new Date() };
+
+      const [rowsUpdated] = await Nutrition.update(updateData, {
         where: { nutr_id: nutr_id },
         returning: true,
       });

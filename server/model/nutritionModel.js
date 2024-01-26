@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
-
 import User from "./userModel.js";
 
 const Nutrition = sequelize.define(
@@ -42,13 +41,6 @@ const Nutrition = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-    },
-  },
-  {
-    hooks: {
-      beforeUpdate: (nutrition, options) => {
-        nutrition.updatedAt = new Date();
-      },
     },
   },
   {
