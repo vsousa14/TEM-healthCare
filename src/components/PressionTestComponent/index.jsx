@@ -2,10 +2,10 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useAuth } from '../../context/AuthContext';
+import cfg from '../../cfg.json'
 
 function PressionTestComponent() {
   const {user} = useAuth();
-  console.log(user.u_id);
   const [heartRate, setHeartRate] = useState();
   const [sysValue, setSysValue] = useState(120);
   const [diaValue, setDiaValue] = useState(80);
@@ -56,6 +56,31 @@ function PressionTestComponent() {
     }
   }, [isUpdating]);
 
+  const makeTest = async (sys, dia) => {
+    try {
+  
+      const response = await fetch(`http://${cfg.serverIP}:3000/api/pressure/make`,{
+        method: "POST",
+          headers: {
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1X2lkIjoxMSwiaWF0IjoxNzA2MjgyMTkyfQ.pbn_XI-37BJtXgf-ovLo9AYniQLqH6HTbuldgT44j64',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            u_id: user.u_id,
+            press_sys: sys,
+            press_dia: dia,
+          }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+      } else {
+        console.error('Erro ao fazer teste:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Erro na submissao do teste:', error);
+    } 
+  };
+
   useEffect(() => {
     if (showMessage) {
       const timeoutId = setTimeout(() => {
@@ -65,6 +90,7 @@ function PressionTestComponent() {
         console.log('Heart Rate:', heartRate);
         console.log('SYS Value:', sysValue);
         console.log('DIA Value:', diaValue);
+        makeTest(sysValue, diaValue);
         setHeartRate(0);
         setSysValue(0);
         setDiaValue(0);

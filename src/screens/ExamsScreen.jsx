@@ -1,11 +1,43 @@
 
-import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import React,{useState, useEffect} from 'react';
+import { View, Text, SafeAreaView, StyleSheet, ScrollView,ActivityIndicator } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 import ActionCardComponent from '../components/ActionCardComponent';
+import { useAuth } from '../context/AuthContext';
+import cfg from '../cfg.json'
 
 function ExamsScreen({ navigation }) {
+  const {user} = useAuth();
+  const [exams, setExams] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchExams = async () => {
+    try {
+      const response = await fetch(`http://${cfg.serverIP}:3000/api/exams/get/${user.u_id}`, {
+        headers: {
+          'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1X2lkIjoxMSwiaWF0IjoxNzA2MjgyMTkyfQ.pbn_XI-37BJtXgf-ovLo9AYniQLqH6HTbuldgT44j64',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const exames = await response.json();
+        setExams(exames);
+      } else {
+        console.error('Erro ao obter exames');
+      }
+    } catch (error) {
+      console.error('Erro ao obter exames:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchExams();
+  }, []);
+
     return (
         <SafeAreaView>
           <ScrollView>
@@ -17,9 +49,16 @@ function ExamsScreen({ navigation }) {
           <Text style={{fontSize:20,fontWeight:'bold'}}>Exames</Text>
           </View>
         
-        <ActionCardComponent text={"Análise de sangue"} icon={"file"} subText={"07/10/2023"} iconPos={"left"}/>
-        <ActionCardComponent text={"Análise de sangue"} icon={"file"} subText={"07/10/2023"} iconPos={"left"}/>
-        <ActionCardComponent text={"Análise de sangue"} icon={"file"} subText={"07/10/2023"} iconPos={"left"}/>
+        {loading ? (
+                <ActivityIndicator size="large" color="#3498db" />
+              ) : exams.length > 0 ? (
+                exams.map((exam) => (
+                  <ActionCardComponent key={exam.exam_id} text={exam.exam_desct} icon={"file"} subText={exam.createdAt} iconPos={"left"}/>
+                ))
+              ) : (
+                <Text style={styles().noPrescriptionsText}>Sem exames para mostrar</Text>
+              )}
+
         </View>
         </ScrollView>
       </SafeAreaView>
@@ -39,6 +78,12 @@ function ExamsScreen({ navigation }) {
       alignItems:'center',
       paddingLeft:10,
       marginVertical:10,
+    },
+    noPrescriptionsText: {
+      fontSize: 18,
+      textAlign: 'center',
+      marginTop: 20,
+      color: '#3498db',
     },
   })
 

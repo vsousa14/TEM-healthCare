@@ -1,14 +1,22 @@
 // Homepage.js
-import React, {useRef} from 'react';
-import {SafeAreaView, View, StyleSheet, Text, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import React, {useState,useEffect,useRef} from 'react';
+import {SafeAreaView, View, StyleSheet, Text, ScrollView, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
 import ActionCardComponent from '../components/ActionCardComponent';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomSheet from '../components/BottomSheet';
 import PressionTestComponent from '../components/PressionTestComponent';
+import cfg from '../cfg.json'
+import {useAuth} from '../context/AuthContext'
 
  function Homepage({navigation}) {
+  const {user} = useAuth();
+  const [lastExams, setLastExams] = useState([]);
+  const [lastObjectives, setLastObjectives] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [isLoadingObjectives, setIsLoadingObjectives] = useState(true);
+
   const { height } = Dimensions.get('screen');
   const bottomSheetRef = useRef(null);
   const handleExpand = () => {
@@ -17,6 +25,59 @@ import PressionTestComponent from '../components/PressionTestComponent';
 
   const handleClose = () => {
     bottomSheetRef.current?.close();
+  };
+
+  useEffect(() => {
+    getLastExams();
+   getLastObjectives();
+  }, []);
+
+  const getLastExams = async () => {
+    try {
+      setLoading(true);
+  
+      const response = await fetch(`http://${cfg.serverIP}:3000/api/exams/lasthree/${user.u_id}`,{
+        method: "GET",
+          headers: {
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1X2lkIjoxMSwiaWF0IjoxNzA2MjgyMTkyfQ.pbn_XI-37BJtXgf-ovLo9AYniQLqH6HTbuldgT44j64',
+            'Content-Type': 'application/json',
+          },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setLastExams(data);
+      } else {
+        console.error('Erro ao obter os últimos exames:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getLastObjectives = async () => {
+    try {
+      setIsLoadingObjectives(true);
+      const response = await fetch(`http://${cfg.serverIP}:3000/api/objectives/lasthree/${user.u_id}`,{
+        method: "GET",
+          headers: {
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1X2lkIjoxMSwiaWF0IjoxNzA2MjgyMTkyfQ.pbn_XI-37BJtXgf-ovLo9AYniQLqH6HTbuldgT44j64',
+            'Content-Type': 'application/json',
+          },
+      });
+      console.log("CODE: ",response.status);
+      if (response.ok) {
+        const data = await response.json();
+        setLastObjectives(data);
+      } else {
+        console.error('Erro ao obter os últimos objetivos:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+    } finally {
+      setIsLoadingObjectives(false);
+    }
   };
 
   return (
@@ -33,12 +94,49 @@ import PressionTestComponent from '../components/PressionTestComponent';
         <Text style={styles().categoryTitle}>Prescrições</Text>
         <ActionCardComponent text={"Consultar Prescrições"} icon={"medkit"} iconPos={"left"} navigation={navigation} pageToGo={"MedicationScreen"}/>
         <Text style={styles().categoryTitle}>Ultimos Exames</Text>
-        <ActionCardComponent text={"Análise de sangue"} icon={"file"} subText={"07/10/2023"} iconPos={"left"}/>
+        {isLoading ? (
+          
+          <ActivityIndicator size="large" color="#025688" style={{ marginTop: 10 }} />
+        ) : (
+          
+          lastExams.length > 0 ? (
+            
+            lastExams.map((exam, index) => (
+              <ActionCardComponent
+                key={index}
+                text={exam.exam_desct}
+                icon={"file"}
+                subText={exam.updatedAt}
+                iconPos={"left"}
+              />
+            ))
+          ) : (
+            
+            <Text style={styles().noObjectivesText}>
+              Sem exames para mostrar
+            </Text>
+          )
+        )}
         <View style={styles().objectivesTextWrapper}>
         <Text style={styles().categoryTitle}>Objetivos</Text>
-        <Text style={styles().categorySubTitle}>Até 16/09/2023</Text>
+        {/* <Text style={styles().categorySubTitle}>Até 16/09/2023</Text> */}
         </View>
-        <ActionCardComponent text={"Caminhada 30 minutos"}/>
+        {isLoadingObjectives ? (
+         
+          <ActivityIndicator size="large" color="#025688" style={{ marginTop: 10 }} />
+        ) : (
+        
+          lastObjectives.length > 0 ? (
+            
+            lastObjectives.map((objective, index) => (
+              <ActionCardComponent key={index} text={objective.obj_desc} />
+            ))
+          ) : (
+            
+            <Text style={styles().noObjectivesText}>Sem objetivos para mostrar</Text>
+          )
+        )}
+        
 
         </View>  
         </ScrollView>
@@ -84,7 +182,13 @@ const styles = (yheight) => StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center'
-  }
+  },
+  noObjectivesText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#3498db',
+  },
 })
 
 export default Homepage
