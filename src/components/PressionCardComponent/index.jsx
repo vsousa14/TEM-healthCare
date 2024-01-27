@@ -10,20 +10,20 @@ function PressionCardComponent({dia, sys, date, isBestResult}) {
              <View style={styles().btnContainerBest}>
                 <View style={styles().bestResultContainer}>
                     <Text style={styles().bestText}>Melhor Análise</Text>
-                    <Text style={styles().dateItem}>07/10/2023</Text>
+                    <Text style={styles().dateItem}>{date}</Text>
                 </View>
                 <View style={styles().valuesContainer}>
-                    <Text style={styles().valueItem}>120 SYS</Text>
-                    <Text style={styles().valueItem}>80 DIA</Text>
+                    <Text style={styles().valueItem}>{sys} SYS</Text>
+                    <Text style={styles().valueItem}>{dia} DIA</Text>
                 </View>
             </View> 
         : 
             <View style={styles().btnContainer}>
                 <View style={styles().valuesContainer}>
-                    <Text style={styles().valueItem}>120 SYS</Text>
-                    <Text style={styles().valueItem}>80 DIA</Text>
+                    <Text style={styles().valueItem}>{sys} SYS</Text>
+                    <Text style={styles().valueItem}>{dia} DIA</Text>
                 </View>
-            <Text style={styles().dateItem}>07/10/2023</Text>
+            <Text style={styles().dateItem}>{date}</Text>
     </View>
     }
         </View>
