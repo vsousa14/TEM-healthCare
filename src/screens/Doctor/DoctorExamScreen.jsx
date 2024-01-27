@@ -1,6 +1,6 @@
 // Homepage.js
-import React, {useState} from 'react';
-import {SafeAreaView, View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, View, StyleSheet, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import HeaderComponent from '../../components/HeaderComponent';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -12,7 +12,8 @@ import cfg from '../../cfg.json'
   const route = useRoute();
   const { uid, uname } = route.params;
   //*states for the description field
-  const [desc, setDesc] = React.useState('Test text'); 
+  const [desc, setDesc] = useState('Test text'); 
+  const [isLoading, setLoading] = useState(true); 
 
   //*states for the dropdown
   const [open, setOpen] = useState(false);
@@ -36,6 +37,34 @@ import cfg from '../../cfg.json'
       console.error('Error picking document:', error);
     }
   };
+
+  const getCategories = async () => {
+    try {
+      setLoading(true);
+  
+      const response = await fetch(`http://${cfg.serverIP}:3000/api/exams/getcategories`,{
+        method: "GET",
+          headers: {
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1X2lkIjoxMSwiaWF0IjoxNzA2MjgyMTkyfQ.pbn_XI-37BJtXgf-ovLo9AYniQLqH6HTbuldgT44j64',
+            'Content-Type': 'application/json',
+          },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setItems(data);
+      } else {
+        console.error('Erro ao obter os categorias:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   const submitExam = async () => {
     //desc=text e value=category
@@ -94,16 +123,22 @@ import cfg from '../../cfg.json'
           <Text style={{fontSize:20,fontWeight:'bold'}}>Submeter Exame</Text>
           </View>
             <View style={styles().formWrapper}>
-              <DropDownPicker
-                placeholder='Selecionar categoria'
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-              />
-      
+            {isLoading ? (
+          
+          <ActivityIndicator size="large" color="#025688" style={{ marginTop: 10 }} />
+        ) : (
+          <DropDownPicker
+          placeholder='Selecionar categoria'
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+        />
+            )
+        }
+              
               <View
               style={{
                 backgroundColor: desc,

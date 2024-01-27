@@ -104,7 +104,7 @@ import {useAuth} from '../context/AuthContext'
             lastExams.map((exam, index) => (
               <ActionCardComponent
                 key={index}
-                text={exam.exam_desct}
+                text={exam["ExamCategoria.exam_cat_name"]}
                 icon={"file"}
                 subText={exam.updatedAt}
                 iconPos={"left"}

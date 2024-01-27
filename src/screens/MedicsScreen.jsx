@@ -21,7 +21,7 @@ function MedicsScreen({ navigation }) {
 
       if (response.ok) {
         const doctorData = await response.json();
-        console.log(doctorData.doctors);
+        console.log(doctorData.doctors[0]["DocCategoria.doc_cat_name"]);
         setDoctors(doctorData.doctors);
       } else {
         console.error('Erro ao obter prescrições');
@@ -52,7 +52,7 @@ function MedicsScreen({ navigation }) {
                 <ActivityIndicator size="large" color="#3498db" />
               ) : doctors.length > 0 ? (
                 doctors.map((doc) => (
-                  <ActionCardComponent key={doc.u_id} text={doc.u_nome} icon={"user-md"} subText={"Nutricionista"} iconPos={"left"}/>
+                  <ActionCardComponent key={doc.u_id} text={doc.u_nome} icon={"user-md"} subText={doc[["DocCategoria.doc_cat_name"]]} iconPos={"left"}/>
                 ))
               ) : (
                 <Text style={styles().noPrescriptionsText}>Sem prescrições para mostrar</Text>

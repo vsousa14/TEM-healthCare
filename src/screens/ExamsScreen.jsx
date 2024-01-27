@@ -53,7 +53,7 @@ function ExamsScreen({ navigation }) {
                 <ActivityIndicator size="large" color="#3498db" />
               ) : exams.length > 0 ? (
                 exams.map((exam) => (
-                  <ActionCardComponent key={exam.exam_id} text={exam.exam_desct} icon={"file"} subText={exam.createdAt} iconPos={"left"}/>
+                  <ActionCardComponent key={exam.exam_id} text={exam["ExamCategoria.exam_cat_name"]} icon={"file"} subText={exam.createdAt} iconPos={"left"}/>
                 ))
               ) : (
                 <Text style={styles().noPrescriptionsText}>Sem exames para mostrar</Text>
