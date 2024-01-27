@@ -32,7 +32,12 @@ const ExamController = {
     try {
       const categories = await ExamCategorias.findAll();
 
-      res.status(200).json(categories);
+      const formattedCategories = categories.map(category => ({
+        label: category.exam_cat_name,
+        value: category.exam_cat_id,
+      }));
+  
+      res.status(200).json(formattedCategories);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
