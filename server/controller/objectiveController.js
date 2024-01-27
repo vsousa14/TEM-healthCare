@@ -49,8 +49,9 @@ const ObjectivesController = {
       const u_id = req.params.u_id;
       const objectives = await Objectives.findAll({
         where: { u_id: u_id },
-        order: [["createdAt", "DESC"]],
+        order: [["obj_id", "DESC"]],
         limit: 3,
+        raw: true,
       });
 
       res.status(200).json(objectives);

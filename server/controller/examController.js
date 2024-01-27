@@ -55,7 +55,15 @@ const ExamController = {
 
       const exams = await Exams.findAll({
         where: { u_id: u_id },
-        order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: ExamCategorias,
+            attributes: ["exam_cat_name"],
+            required: false,
+          },
+        ],
+        raw: true,
+        order: [["exam_id", "DESC"]],
         limit: 3,
       });
 
