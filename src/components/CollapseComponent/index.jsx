@@ -4,66 +4,23 @@ import { StyleSheet } from 'react-native';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
 
 const CollapseComponent = ({ dayofweek, items, isEditable }) => {
- 
   const [expanded, setExpanded] = useState(false);
+  const [meals, setMeals] = useState(null);
   let sendToBD;
   const onItemPress = () => {
-    setExpanded(!expanded);
+    setExpanded(!expanded); 
   };
-
-  const [mealTypes, setMealTypes] = useState({
-    palmoco: items[0].palmoco,
-    mmanha: items[0].mmanha,
-    almoco: items[0].almoco,
-    lanche1: items[0].lanche1,
-    lanche2: items[0].lanche2,
-    jantar: items[0].jantar,
-    ceia: items[0].ceia,
-  });
-  // Adicione estados semelhantes para outros tipos de refeição...
 
   useEffect(() => {
-    // Atualiza os estados locais quando os itens mudam
-    setMealTypes({
-      palmoco: items[0].palmoco,
-      mmanha: items[0].mmanha,
-      almoco: items[0].almoco,
-      lanche1: items[0].lanche1,
-      lanche2: items[0].lanche2,
-      jantar: items[0].jantar,
-      ceia: items[0].ceia,
-    });
-  }, [items]);
-
-  const handleTextChange = (val, type) => {
-    switch (type) {
-      case 'palmoco':
-        sendToBD = val;
-        //TODO no onBlur usar o valor da variavel sendToDB e dar reset do valor
-        setMealTypes((prevMealTypes) => ({ ...prevMealTypes, palmoco: val }));
-        break;
-      case 'mmanha':
-        setMealTypes((prevMealTypes) => ({ ...prevMealTypes, mmanha: val }));
-        break;
-      case 'almoco':
-        setMealTypes((prevMealTypes) => ({ ...prevMealTypes, almoco: val }));
-        break;
-      case 'lanche1':
-        setMealTypes((prevMealTypes) => ({ ...prevMealTypes, lanche1: val }));
-        break;
-      case 'lanche2':
-        setMealTypes((prevMealTypes) => ({ ...prevMealTypes, lanche2: val }));
-        break;
-      case 'jantar':
-        setMealTypes((prevMealTypes) => ({ ...prevMealTypes, jantar: val }));
-        break;
-      case 'ceia':
-        setMealTypes((prevMealTypes) => ({ ...prevMealTypes, ceia: val }));
-        break;
-      default:
-        break;
+    // Pode realizar qualquer lógica necessária com os dados de "items" aqui
+    if (items) {
+      setMeals(items);
+      // if (meals && meals.length > 0) {
+      //   console.log(dayofweek + " > DIA DA SEMANA!");
+      //   console.log(meals[0].nutr_desc); // Acesso direto a nutr_desc
+      // }
     }
-  };
+  }, [items, dayofweek, meals]);
 
   const handleOnBlur = () => {
     //TODO quando o input perder o focus, enviar os dados para o backend
@@ -98,7 +55,7 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
               <TextInput
                 onChangeText={(val) => handleTextChange(val, 'palmoco')}
                 onBlur={() => {handleOnBlur()}}
-                value={mealTypes.palmoco}
+                value={meals && meals.length > 0 && meals[0] ? meals[0].nutr_desc : ""}
                 placeholder="Sem indicação"
               />
             </View>
@@ -107,7 +64,7 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
               <TextInput
                 onChangeText={(val) => handleTextChange(val, 'mmanha')}
                 onBlur={() => {handleOnBlur()}}
-                value={mealTypes.mmanha}
+                value={meals && meals.length > 0 && meals[1] ? meals[1].nutr_desc : ""}
                 placeholder="Sem indicação"
               />
             </View>
@@ -116,7 +73,7 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
               <TextInput
                 onChangeText={(val) => handleTextChange(val, 'almoco')}
                 onBlur={() => {handleOnBlur()}}
-                value={mealTypes.almoco}
+                value={meals && meals.length > 0 && meals[2] ? meals[2].nutr_desc : ""}
                 placeholder="Sem indicação"
               />
             </View>
@@ -125,7 +82,7 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
               <TextInput
                 onChangeText={(val) => handleTextChange(val, 'lanche1')}
                 onBlur={() => {handleOnBlur()}}
-                value={mealTypes.lanche1}
+                value={meals && meals.length > 0 && meals[3] ? meals[3].nutr_desc : ""}
                 placeholder="Sem indicação"
               />
             </View>
@@ -134,7 +91,7 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
               <TextInput
                 onChangeText={(val) => handleTextChange(val, 'lanche2')}
                 onBlur={() => {handleOnBlur()}}
-                value={mealTypes.lanche2}
+                value={meals && meals.length > 0 && meals[4] ? meals[4].nutr_desc : ""}
                 placeholder="Sem indicação"
               />
             </View>
@@ -143,7 +100,7 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
               <TextInput
                 onChangeText={(val) => handleTextChange(val, 'jantar')}
                 onBlur={() => {handleOnBlur()}}
-                value={mealTypes.jantar}
+                value={meals && meals.length > 0 && meals[5] ? meals[5].nutr_desc : ""}
                 placeholder="Sem indicação"
               />
             </View>
@@ -152,7 +109,7 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
               <TextInput
                 onChangeText={(val) => handleTextChange(val, 'ceia')}
                 onBlur={() => {handleOnBlur()}}
-                value={mealTypes.ceia}
+                value={meals && meals.length > 0 && meals[6] ? meals[6].nutr_desc : ""}
                 placeholder="Sem indicação"
               />
             </View>
@@ -162,31 +119,31 @@ const CollapseComponent = ({ dayofweek, items, isEditable }) => {
                 <>
                 <View style={styles().itemContent}>
                 <Text style={styles().itemTitle}>Pequeno Almoço</Text>
-                <Text style={styles().itemDesc}>{items[0].palmoco}</Text>
+                <Text style={styles().itemDesc}>{meals && meals.length > 0 && meals[0] ? meals[0].nutr_desc : "Sem Indicação"}</Text>
               </View>
               <View style={styles().itemContent}>
                 <Text style={styles().itemTitle}>Meio da manhã</Text>
-                <Text style={styles().itemDesc}>{items[0].mmanha}</Text>
+                <Text style={styles().itemDesc}>{meals && meals.length > 0 && meals[1] ? meals[1].nutr_desc : "Sem Indicação"}</Text>
               </View>
               <View style={styles().itemContent}>
                 <Text style={styles().itemTitle}>Almoço</Text>
-                <Text style={styles().itemDesc}>{items[0].almoco}</Text>
+                <Text style={styles().itemDesc}>{meals && meals.length > 0 && meals[2] ? meals[2].nutr_desc : "Sem Indicação"}</Text>
               </View>
               <View style={styles().itemContent}>
                 <Text style={styles().itemTitle}>1º Lanche</Text>
-                <Text style={styles().itemDesc}>{items[0].lanche1}</Text>
+                <Text style={styles().itemDesc}>{meals && meals.length > 0 && meals[3] ? meals[3].nutr_desc : "Sem Indicação"}</Text>
               </View>
               <View style={styles().itemContent}>
                 <Text style={styles().itemTitle}>2º Lanche</Text>
-                <Text style={styles().itemDesc}>{items[0].lanche2}</Text>
+                <Text style={styles().itemDesc}>{meals && meals.length > 0 && meals[4] ? meals[4].nutr_desc : "Sem Indicação"}</Text>
               </View>
               <View style={styles().itemContent}>
                 <Text style={styles().itemTitle}>Jantar</Text>
-                <Text style={styles().itemDesc}>{items[0].jantar}</Text>
+                <Text style={styles().itemDesc}>{meals && meals.length > 0 && meals[5] ? meals[5].nutr_desc : "Sem Indicação"}</Text>
               </View>
               <View style={styles().itemContent}>
                 <Text style={styles().itemTitle}>Ceia (Opcional)</Text>
-                <Text style={styles().itemDesc}>{items[0].ceia}</Text>
+                <Text style={styles().itemDesc}>{meals && meals.length > 0 && meals[6] ? meals[6].nutr_desc : "Sem Indicação"}</Text>
               </View>
                 </>
           }
