@@ -6,6 +6,7 @@ import FontAwessome from '@expo/vector-icons/FontAwesome';
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as DocumentPicker from 'expo-document-picker';
 import { useRoute } from '@react-navigation/native';
+import cfg from '../../cfg.json'
 
  function DoctorExamScreen({navigation}) {
   const route = useRoute();
@@ -19,8 +20,6 @@ import { useRoute } from '@react-navigation/native';
   const [items, setItems] = useState([
     {label: 'Análises ao Sangue', value: '1'},
     {label: 'Análises á Urina', value: '2'},
-    {label: 'Análises ás Fezes', value: '3'},
-    {label: 'TAC', value: '4'},
   ]);
 
   //*handles file selection
@@ -35,6 +34,54 @@ import { useRoute } from '@react-navigation/native';
       }
     } catch (error) {
       console.error('Error picking document:', error);
+    }
+  };
+
+  const submitExam = async () => {
+    //desc=text e value=category
+    try {
+      // Verifica se a categoria foi selecionada
+      if (!value) {
+        console.error('Selecione uma categoria antes de enviar o exame.');
+        return;
+      }
+  
+      // Construa os dados a serem enviados no corpo da requisição
+      // const formData = new FormData();
+      // formData.append('category', value);
+      // formData.append('description', desc);
+  
+      // Adicione o documento, se existir
+      // if (pickedDocument) {
+      //   formData.append('document', {
+      //     uri: pickedDocument.uri,
+      //     type: 'application/pdf',
+      //     name: pickedDocument.assets[0].name,
+      //   });
+      // }
+  
+      // Faça a requisição para o servidor
+      const response = await fetch(`http://${cfg.serverIP}:3000/api/exams/create`, {
+        method: 'POST',
+        headers: {
+          'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1X2lkIjoxMSwiaWF0IjoxNzA2MjgyMTkyfQ.pbn_XI-37BJtXgf-ovLo9AYniQLqH6HTbuldgT44j64', // Substitua pelo seu token
+          'Content-Type': 'application/json',
+        },
+        body:  JSON.stringify({
+          u_id: uid,
+          exam_cat_id: Number(value),
+          exam_desct: desc,
+        }),
+      });
+  
+      if (response.ok) {
+        console.log('Exame enviado com sucesso!');
+        // Adicione qualquer lógica adicional, se necessário
+      } else {
+        console.error('Erro ao enviar exame:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
     }
   };
 
@@ -83,8 +130,8 @@ import { useRoute } from '@react-navigation/native';
             </View>
 
               {/* TODO: fazer o input de ficheiro */}
-              <View style={styles().submitButton}>
-              <TouchableOpacity>
+              <View style={styles().submitButton} >
+              <TouchableOpacity onPress={submitExam}>
                 <Text>Enviar Exame</Text>
               </TouchableOpacity>
             </View>
