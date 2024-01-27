@@ -22,6 +22,7 @@ import cfg from '../../cfg.json'
 //http://${cfg.serverIP}:3000/api/nutrition/get/${uid}/${weekday}
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1X2lkIjoxMSwiaWF0IjoxNzA2MjgyMTkyfQ.pbn_XI-37BJtXgf-ovLo9AYniQLqH6HTbuldgT44j64
 
+
 const fetchPlanoNutricional = async (weekday) => {
   try {
     const response = await fetch(`http://${cfg.serverIP}:3000/api/nutrition/get/${uid}/${weekday}`, {
@@ -53,10 +54,13 @@ useEffect(() => {
   // Chama a função de fetch quando o componente montar
   // para cada dia da semana
   const fetchPlanos = async () => {
-    for (let weekday = 1; weekday <= 7; weekday++) {
+    for (let weekday = 1; weekday <= 8; weekday++) {
       await fetchPlanoNutricional(weekday);
     }
   };
+  if (planosTodosSeparados && planosTodosSeparados.length > 0) {
+        console.log(planosTodosSeparados); // Acesso direto a nutr_desc
+      }
 
   fetchPlanos();
 }, []);
@@ -73,13 +77,13 @@ useEffect(() => {
                 </View>
                 </View>
                
-                <CollapseComponent dayofweek={"Segunda-feira"} items={planosTodosSeparados[1]} isEditable={true}/>
-                <CollapseComponent dayofweek={"Terça-feira"} items={planosTodosSeparados[2]} isEditable={true}/>
-                <CollapseComponent dayofweek={"Quarta-feira"} items={planosTodosSeparados[3]} isEditable={true}/>
-                <CollapseComponent dayofweek={"Quinta-feira"} items={planosTodosSeparados[4]} isEditable={true}/>
-                <CollapseComponent dayofweek={"Sexta-feira"} items={planosTodosSeparados[5]} isEditable={true}/>
-                <CollapseComponent dayofweek={"Sábado"} items={planosTodosSeparados[6]} isEditable={true}/>
-                <CollapseComponent dayofweek={"Domingo"} items={planosTodosSeparados[7]} isEditable={true}/>
+                <CollapseComponent dayofweek={"Segunda-feira"} items={planosTodosSeparados[1]} isEditable={true} uid={uid} dayofweeknumber={1}/>
+                <CollapseComponent dayofweek={"Terça-feira"} items={planosTodosSeparados[2]} isEditable={true} uid={uid} dayofweeknumber={2}/>
+                <CollapseComponent dayofweek={"Quarta-feira"} items={planosTodosSeparados[3]} isEditable={true} uid={uid} dayofweeknumber={3}/>
+                <CollapseComponent dayofweek={"Quinta-feira"} items={planosTodosSeparados[4]} isEditable={true} uid={uid} dayofweeknumber={4}/>
+                <CollapseComponent dayofweek={"Sexta-feira"} items={planosTodosSeparados[5]} isEditable={true} uid={uid} dayofweeknumber={5}/>
+                <CollapseComponent dayofweek={"Sábado"} items={planosTodosSeparados[6]} isEditable={true} uid={uid} dayofweeknumber={6}/>
+                <CollapseComponent dayofweek={"Domingo"} items={planosTodosSeparados[7]} isEditable={true} uid={uid} dayofweeknumber={7}/>
              
             </View>
           </ScrollView>
