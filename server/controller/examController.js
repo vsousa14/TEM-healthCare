@@ -1,4 +1,6 @@
 import Exams from "../model/examsModel.js";
+import ExamCategorias from "../model/examsCatModel.js";
+import sequelize from "../config/database.js";
 
 const err500 = "Erro Interno de Servidor";
 
@@ -9,9 +11,28 @@ const ExamController = {
 
       const exams = await Exams.findAll({
         where: { u_id: u_id },
+        include: [
+          {
+            model: ExamCategorias,
+            attributes: ["exam_cat_name"],
+            required: false,
+          },
+        ],
+        raw: true,
       });
 
       res.status(200).json(exams);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err500 });
+    }
+  },
+
+  getExamCategories: async (req, res) => {
+    try {
+      const categories = await ExamCategorias.findAll();
+
+      res.status(200).json(categories);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });

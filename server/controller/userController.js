@@ -39,16 +39,17 @@ const UserController = {
     try {
       const doctors = await User.findAll({
         where: { u_role: 1 },
+        include: [
+          {
+            model: DocCategorias,
+            attributes: ["doc_cat_name"],
+            required: false,
+          },
+        ],
+        raw: true,
       });
 
-      const doc_categorias = await DocCategorias.findAll({
-        attributes: ["doc_cat_id", "doc_cat_name"],
-        where: sequelize.literal(
-          "EXISTS (SELECT 1 FROM `users` WHERE `users`.`doc_cat_id` IS NOT NULL AND `users`.`doc_cat_id` = `DocCategorias`.`doc_cat_id`)"
-        ),
-      });
-
-      res.status(200).json({ doctors, doc_categorias });
+      res.status(200).json({ doctors });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: err500 });
