@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomSheet from '../components/BottomSheet';
 import PressionTestComponent from '../components/PressionTestComponent';
+import ExamInfoComponent from '../components/ExamInfoComponent';
 import cfg from '../cfg.json'
 import {useAuth} from '../context/AuthContext'
 
@@ -16,11 +17,18 @@ import {useAuth} from '../context/AuthContext'
   const [lastObjectives, setLastObjectives] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isLoadingObjectives, setIsLoadingObjectives] = useState(true);
+  const [exam, setExam] = useState([]);
 
   const { height } = Dimensions.get('screen');
   const bottomSheetRef = useRef(null);
+  const bottomSheetExamsRef = useRef(null);
   const handleExpand = () => {
     bottomSheetRef.current?.expand();
+  };
+
+  const handleExpandExams = (examItem) => {
+    setExam(examItem)
+    bottomSheetExamsRef.current?.expand();
   };
 
   const handleClose = () => {
@@ -108,6 +116,7 @@ import {useAuth} from '../context/AuthContext'
                 icon={"file"}
                 subText={exam.updatedAt}
                 iconPos={"left"}
+                clickEvent={() => handleExpandExams(exam)}
               />
             ))
           ) : (
@@ -148,6 +157,16 @@ import {useAuth} from '../context/AuthContext'
       >
         <PressionTestComponent/>
       </BottomSheet>
+
+      <BottomSheet
+        ref={bottomSheetExamsRef}
+        snapTo={'50%'}
+        backgroundColor={'#fff'}
+        backDropColor={'black'}
+      >
+       <ExamInfoComponent exam={exam}/>
+      </BottomSheet>
+      
       </SafeAreaView>
       </GestureHandlerRootView>
     </SafeAreaProvider>

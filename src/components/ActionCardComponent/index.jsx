@@ -7,6 +7,10 @@ function ActionCardComponent({icon, iconPos, bgColor, actionIcon, text, subText,
   const handleRedirect = () => {
     if(pageToGo !== ""){
       navigation.navigate(pageToGo);
+    }else{
+      if(typeof(clickEvent) == 'function'){
+        clickEvent()
+      }
     }
    
   }
