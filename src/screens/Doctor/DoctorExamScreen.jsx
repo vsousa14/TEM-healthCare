@@ -12,7 +12,7 @@ import cfg from '../../cfg.json'
   const route = useRoute();
   const { uid, uname } = route.params;
   //*states for the description field
-  const [desc, setDesc] = useState('Test text'); 
+  const [desc, setDesc] = useState(''); 
   const [isLoading, setLoading] = useState(true); 
 
   //*states for the dropdown
@@ -153,6 +153,7 @@ import cfg from '../../cfg.json'
                 maxLength={200}
                 onChangeText={text => setDesc(text)}
                 value={desc}
+                placeholder='Nota adicional (opcional)'
                 style={{padding: 10, backgroundColor:'#fff',borderRadius:10}}
               />
             </View>

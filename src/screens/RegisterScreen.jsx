@@ -66,7 +66,7 @@ export default function RegisterScreen({ navigation }) {
 
           <TextInput
             style={styles.textInput}
-            placeholder="Primeiro Nome"
+            placeholder="Nome e Sobrenome"
             placeholderTextColor="#999"
             onChangeText={(text) => setFirstName(text)}
           />
