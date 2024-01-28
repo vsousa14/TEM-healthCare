@@ -70,7 +70,7 @@ import cfg from '../../cfg.json'
                   ) : (
                     
                     <Text style={styles().noObjectivesText}>
-                      Sem exames para mostrar
+                      Sem dados para mostrar
                     </Text>
                   )
                 )}
@@ -105,7 +105,13 @@ const styles = () => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center'
-  }
+  },
+  noObjectivesText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#3498db',
+  },
 })
 
 export default DoctorPressionScreen
