@@ -1,9 +1,13 @@
 
-import React,{useState, useEffect} from 'react';
-import { View, Text, SafeAreaView, StyleSheet, ScrollView,ActivityIndicator } from 'react-native';
+import React,{useState, useEffect, useRef} from 'react';
+import { View, Text, SafeAreaView, StyleSheet, ScrollView,ActivityIndicator, Dimensions } from 'react-native';
 import HeaderComponent from '../components/HeaderComponent';
 import FontAwessome from '@expo/vector-icons/FontAwesome';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ActionCardComponent from '../components/ActionCardComponent';
+import BottomSheet from '../components/BottomSheet';
+import ExamInfoComponent from '../components/ExamInfoComponent';
 import { useAuth } from '../context/AuthContext';
 import cfg from '../cfg.json'
 
@@ -11,6 +15,14 @@ function ExamsScreen({ navigation }) {
   const {user} = useAuth();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [exam, setExam] = useState([]);
+  const { height } = Dimensions.get('screen');
+  const bottomSheetExamsRef = useRef(null);
+
+  const handleExpandExams = (examItem) => {
+    setExam(examItem)
+    bottomSheetExamsRef.current?.expand();
+  };
 
   const fetchExams = async () => {
     try {
@@ -39,11 +51,13 @@ function ExamsScreen({ navigation }) {
   }, []);
 
     return (
+      <SafeAreaProvider>
+      <GestureHandlerRootView>
         <SafeAreaView>
           <ScrollView>
         <HeaderComponent navigation={navigation}/>
         
-        <View style={styles().contentWrapper}>
+        <View style={styles(height).contentWrapper}>
           <View style={styles().titleWrapper}>
           <FontAwessome style={{marginRight:10}} onPress={() =>{navigation.goBack()}} name={"chevron-left"} size={24} /> 
           <Text style={{fontSize:20,fontWeight:'bold'}}>Exames</Text>
@@ -53,7 +67,7 @@ function ExamsScreen({ navigation }) {
                 <ActivityIndicator size="large" color="#3498db" />
               ) : exams.length > 0 ? (
                 exams.map((exam) => (
-                  <ActionCardComponent key={exam.exam_id} text={exam["ExamCategoria.exam_cat_name"]} icon={"file"} subText={exam.createdAt} iconPos={"left"}/>
+                  <ActionCardComponent key={exam.exam_id} text={exam["ExamCategoria.exam_cat_name"]} icon={"file"} subText={exam.createdAt} iconPos={"left"} clickEvent={() => handleExpandExams(exam)}/>
                 ))
               ) : (
                 <Text style={styles().noPrescriptionsText}>Sem exames para mostrar</Text>
@@ -61,13 +75,24 @@ function ExamsScreen({ navigation }) {
 
         </View>
         </ScrollView>
+        <BottomSheet
+        ref={bottomSheetExamsRef}
+        snapTo={'50%'}
+        backgroundColor={'#fff'}
+        backDropColor={'black'}
+      >
+       <ExamInfoComponent exam={exam}/>
+      </BottomSheet>
       </SafeAreaView>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
     );
   }
 
-  const styles = () => StyleSheet.create({
+  const styles = (yheight) => StyleSheet.create({
     contentWrapper:{
       width: '100%',
+      height: yheight,
       marginTop:20,
       paddingHorizontal:10,
       //backgroundColor: 'red'
